@@ -1,5 +1,10 @@
 'use strict';
 
+var adverts = []; //массив объектов предложений
+var offerNumber; //пордяковый номер предложения
+var x; //координата Х
+var y; //координата У
+
 // генерирует случайную цену
 var generatePrice = function() {
   var roomPrice = Math.floor(Math.random()*10000);
@@ -90,12 +95,6 @@ var generateY = function() {
   return y;
 }
 
-
-var adverts = []; //массив объектов предложений
-var offerNumber; //пордяковый номер предложения
-var x; //координата Х
-var y; //координата У
-
 for (var i = 0; i < 8; i++) {
   offerNumber = i + 1;
   x = generateX();
@@ -143,13 +142,14 @@ var mapPinTemplate = document.querySelector("#pin")
 // создаем фрагмент
 var fragment = document.createDocumentFragment();
 
+
 // клонируем элементы
 for (var i = 0; i < adverts.length; i++) {
   var mapPin = mapPinTemplate.cloneNode(true);
   mapPin.querySelector('img').src = adverts[i].author.avatar;
   mapPin.querySelector('img').alt = adverts[i].offer.title;
-  mapPin.style.left = adverts[i].location.x + 'px';
-  mapPin.style.top = adverts[i].location.y + 'px';
+  mapPin.style.left = (adverts[i].location.x - 25) + 'px';
+  mapPin.style.top = (adverts[i].location.y - 70)+ 'px';
 
   fragment.appendChild(mapPin);
 };

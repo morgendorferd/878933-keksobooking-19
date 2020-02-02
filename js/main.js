@@ -42,11 +42,11 @@ var getRandomArrayLength = function (array) {
 
 // получить случайный элемент массива
 var getRandomElement = function (array) {
-  return array[Math.floor(Math.random() * array.length)];
+  return array[getRandomIntInclusive(0, array.length - 1)];
 };
 
 var getRandomUniqueElement = function (array) {
-  return array.splice(array.length - 1, 1)
+  return array.splice(getRandomIntInclusive(0, array.length - 1), 1)
 }
 
 
@@ -56,21 +56,21 @@ var getItem = function () {
   var y = getRandomIntInclusive(130, 630);
   var item = {
     author: {
-      avatar: getRandomUniqueElement (MOCK_DATA.author.avatar).join()
+      avatar: getRandomUniqueElement(MOCK_DATA.author.avatar).join()
     },
 
     offer: {
-      title: getRandomUniqueElement (MOCK_DATA.offer.title).join(),
+      title: getRandomUniqueElement(MOCK_DATA.offer.title).join(),
       address: x + ',' + y,
-      price: getRandomIntInclusive (1000, 10000),
-      type: getRandomElement (MOCK_DATA.offer.type),
-      rooms: getRandomIntInclusive (1, 5),
-      guests: getRandomIntInclusive (1, 10),
-      checkin: getRandomElement (MOCK_DATA.offer.checkin),
-      checkout: getRandomElement (MOCK_DATA.offer.checkout),
-      features: getRandomArrayLength (MOCK_DATA.offer.features),
-      description: getRandomElement (MOCK_DATA.offer.description),
-      photos: getRandomArrayLength (MOCK_DATA.offer.photos)
+      price: getRandomIntInclusive(1000, 10000),
+      type: getRandomElement(MOCK_DATA.offer.type),
+      rooms: getRandomIntInclusive(1, 5),
+      guests: getRandomIntInclusive(1, 10),
+      checkin: getRandomElement(MOCK_DATA.offer.checkin),
+      checkout: getRandomElement(MOCK_DATA.offer.checkout),
+      features: getRandomArrayLength(MOCK_DATA.offer.features),
+      description: getRandomElement(MOCK_DATA.offer.description),
+      photos: getRandomArrayLength(MOCK_DATA.offer.photos)
     },
 
     location: {
@@ -106,12 +106,12 @@ var mapPinTemplate = document.querySelector('#pin')
     .content
     .querySelector('.map__pin');
 
-var clonePins = function (pin) {
+var clonePins = function (item) {
   var mapPinElement = mapPinTemplate.cloneNode(true);
-  mapPinElement.querySelector('img').src = pin.author.avatar;
-  mapPinElement.querySelector('img').alt = pin.offer.title;
-  mapPinElement.style.left = (pin.location.x - 25) + 'px';
-  mapPinElement.style.top = (pin.location.y - 70) + 'px';
+  mapPinElement.querySelector('img').src = item.author.avatar;
+  mapPinElement.querySelector('img').alt = item.offer.title;
+  mapPinElement.style.left = (item.location.x - 25) + 'px';
+  mapPinElement.style.top = (item.location.y - 70) + 'px';
   return mapPinElement;
 }
 

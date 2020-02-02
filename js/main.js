@@ -9,11 +9,11 @@ var MOCK_DATA = {
 
   offer: {
     title: ['Предложение 1', 'Предложение 2', 'Предложение 3', 'Предложение 4', 'Предложение 5', 'Предложение 6', 'Предложение 7', 'Предложение 8'],
-    address: '600, 350',
-    price: 10000,
+    address: '',
+    price: 0,
     type: ['palace', 'flat', 'house', 'bungalo'],
-    rooms: 3,
-    guests: 6,
+    rooms: 1,
+    guests: 1,
     checkin: ['12.00', '13.00', '14.00'],
     checkout: ['12.00', '13.00', '14.00'],
     features: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
@@ -22,23 +22,31 @@ var MOCK_DATA = {
   },
 
   location: {
-    x: 600,
-    y: 350
+    x: '',
+    y: ''
   }
 };
 
+var map = document.querySelector('.map');
+
+var mapPinsBlock = document.querySelector('.map__pins');
+
+var mapPinTemplate = document.querySelector('#pin')
+   .content
+   .querySelector('.map__pin');
+
 // получить случайное число, включающее min и max
 var getRandomIntInclusive = function (min, max) {
-  min = Math.ceil(min)
-  max = Math.floor(max)
+  min = Math.ceil(min);
+  max = Math.floor(max);
 
-  return Math.floor(Math.random() * (max - min + 1) + min)
-}
+  return Math.floor(Math.random() * (max - min + 1) + min);
+};
 
 // получить массив случайной длины
 var getRandomArrayLength = function (array) {
-  return array.slice(0, getRandomIntInclusive(1, array.length - 1))
-}
+  return array.slice(0, getRandomIntInclusive(1, array.length - 1));
+};
 
 // получить случайный элемент массива
 var getRandomElement = function (array) {
@@ -46,14 +54,16 @@ var getRandomElement = function (array) {
 };
 
 var getRandomUniqueElement = function (array) {
-  return array.splice(getRandomIntInclusive(0, array.length - 1), 1)
-}
+  return array.splice(getRandomIntInclusive(0, array.length - 1), 1);
+};
 
 
 // генерирует объект
 var getItem = function () {
+
   var x = getRandomIntInclusive(0, 1200);
   var y = getRandomIntInclusive(130, 630);
+
   var item = {
     author: {
       avatar: getRandomUniqueElement(MOCK_DATA.author.avatar).join()
@@ -78,9 +88,9 @@ var getItem = function () {
       y: y
     }
   };
+
   return item;
-}
-console.log(getItem());
+};
 
 // генериует массив объектов
 var getAdverts = function () {
@@ -91,20 +101,12 @@ var getAdverts = function () {
   }
 
   return array;
-}
+};
 
-console.log(getAdverts());
+var adverts = getAdverts();
 
 // убираем класс map--faded
-var map = document.querySelector('.map');
 map.classList.remove('map--faded');
-
- // находим блок, в который будем клонировать элементы
-var mapPinsBlock = document.querySelector('.map__pins');
-
-var mapPinTemplate = document.querySelector('#pin')
-    .content
-    .querySelector('.map__pin');
 
 var clonePins = function (item) {
   var mapPinElement = mapPinTemplate.cloneNode(true);
@@ -112,15 +114,16 @@ var clonePins = function (item) {
   mapPinElement.querySelector('img').alt = item.offer.title;
   mapPinElement.style.left = (item.location.x - 25) + 'px';
   mapPinElement.style.top = (item.location.y - 70) + 'px';
+
   return mapPinElement;
-}
+};
 
 var renderPins = function () {
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < MAX_AMOUNT; i++) {
-    fragment.appendChild(clonePins(getAdverts()[i]));
+    fragment.appendChild(clonePins(adverts[i]));
   }
   mapPinsBlock.appendChild(fragment);
-}
+};
 
 renderPins();

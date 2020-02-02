@@ -9,11 +9,11 @@ var MOCK_DATA = {
 
   offer: {
     title: ['Предложение 1', 'Предложение 2', 'Предложение 3', 'Предложение 4', 'Предложение 5', 'Предложение 6', 'Предложение 7', 'Предложение 8'],
-    address: '',
-    price: 0,
+    address: '0, 130',
+    price: [1000, 10000],
     type: ['palace', 'flat', 'house', 'bungalo'],
-    rooms: 1,
-    guests: 1,
+    rooms: [1, 5],
+    guests: [1, 10],
     checkin: ['12.00', '13.00', '14.00'],
     checkout: ['12.00', '13.00', '14.00'],
     features: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
@@ -22,8 +22,8 @@ var MOCK_DATA = {
   },
 
   location: {
-    x: '',
-    y: ''
+    x: [0, 1200],
+    y: [130, 630]
   }
 };
 
@@ -61,8 +61,8 @@ var getRandomUniqueElement = function (array) {
 // генерирует объект
 var getItem = function () {
 
-  var x = getRandomIntInclusive(0, 1200);
-  var y = getRandomIntInclusive(130, 630);
+  var x = getRandomIntInclusive(MOCK_DATA.location.x[0], MOCK_DATA.location.x[1]);
+  var y = getRandomIntInclusive(MOCK_DATA.location.y[0], MOCK_DATA.location.y[1]);
 
   var item = {
     author: {
@@ -72,10 +72,10 @@ var getItem = function () {
     offer: {
       title: getRandomUniqueElement(MOCK_DATA.offer.title).join(),
       address: x + ',' + y,
-      price: getRandomIntInclusive(1000, 10000),
+      price: getRandomIntInclusive(MOCK_DATA.offer.price[0], MOCK_DATA.offer.price[1]),
       type: getRandomElement(MOCK_DATA.offer.type),
-      rooms: getRandomIntInclusive(1, 5),
-      guests: getRandomIntInclusive(1, 10),
+      rooms: getRandomIntInclusive(MOCK_DATA.offer.rooms[0], MOCK_DATA.offer.rooms[1]),
+      guests: getRandomIntInclusive(MOCK_DATA.offer.guests[0], MOCK_DATA.offer.guests[1]),
       checkin: getRandomElement(MOCK_DATA.offer.checkin),
       checkout: getRandomElement(MOCK_DATA.offer.checkout),
       features: getRandomArrayLength(MOCK_DATA.offer.features),

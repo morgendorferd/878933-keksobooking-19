@@ -45,34 +45,32 @@ var getRandomElement = function (array) {
   return array[Math.floor(Math.random() * array.length)];
 };
 
-// получить случайный уникальный элемент массива
 var getRandomUniqueElement = function (array) {
-  return array.splice(getRandomIntInclusive(0, array.length - 1), 1)
+  return array.splice(array.length - 1, 1)
 }
 
-var x = getRandomIntInclusive(0, 1200);
-
-var y = getRandomIntInclusive(130, 630);
 
 // генерирует объект
 var getItem = function () {
+  var x = getRandomIntInclusive(0, 1200);
+  var y = getRandomIntInclusive(130, 630);
   var item = {
     author: {
-      avatar: getRandomUniqueElement (MOCK_DATA.author.avatar)
+      avatar: getRandomUniqueElement (MOCK_DATA.author.avatar).join()
     },
 
     offer: {
-      title: getRandomElement (MOCK_DATA.offer.title),
+      title: getRandomUniqueElement (MOCK_DATA.offer.title).join(),
       address: x + ',' + y,
       price: getRandomIntInclusive (1000, 10000),
-      type: getRandomElement(MOCK_DATA.offer.type),
+      type: getRandomElement (MOCK_DATA.offer.type),
       rooms: getRandomIntInclusive (1, 5),
       guests: getRandomIntInclusive (1, 10),
       checkin: getRandomElement (MOCK_DATA.offer.checkin),
       checkout: getRandomElement (MOCK_DATA.offer.checkout),
       features: getRandomArrayLength (MOCK_DATA.offer.features),
       description: getRandomElement (MOCK_DATA.offer.description),
-      photos: getRandomArrayLength(MOCK_DATA.offer.photos)
+      photos: getRandomArrayLength (MOCK_DATA.offer.photos)
     },
 
     location: {
@@ -82,6 +80,7 @@ var getItem = function () {
   };
   return item;
 }
+console.log(getItem());
 
 // генериует массив объектов
 var getAdverts = function () {
@@ -90,37 +89,38 @@ var getAdverts = function () {
   for (var i = 0; i < MAX_AMOUNT; i++) {
     array.push(getItem());
   }
+
   return array;
 }
 
 console.log(getAdverts());
 
-// //  убираем класс map--faded
-// var map = document.querySelector('.map');
-// map.classList.remove('map--faded');
-//
-// //  находим блок, в который будем клонировать элементы
-// var mapPinsBlock = document.querySelector('.map__pins');
-//
-// //  находим содержание шаблона
-// var mapPinTemplate = document.querySelector('#pin')
-//     .content
-//     .querySelector('.map__pin');
-//
-// //  создаем фрагмент
-// var fragment = document.createDocumentFragment();
-//
-//
-// //  клонируем элементы
-// for (i = 0; i < adverts.length; i++) {
-//   var mapPin = mapPinTemplate.cloneNode(true);
-//   mapPin.querySelector('img').src = adverts[i].author.avatar;
-//   mapPin.querySelector('img').alt = adverts[i].offer.title;
-//   mapPin.style.left = (adverts[i].location.x - 25) + 'px';
-//   mapPin.style.top = (adverts[i].location.y - 70) + 'px';
-//
-//   fragment.appendChild(mapPin);
-// }
-//
-// //  вставляем фрагмент в блок
-// mapPinsBlock.appendChild(fragment);
+// убираем класс map--faded
+var map = document.querySelector('.map');
+map.classList.remove('map--faded');
+
+ // находим блок, в который будем клонировать элементы
+var mapPinsBlock = document.querySelector('.map__pins');
+
+var mapPinTemplate = document.querySelector('#pin')
+    .content
+    .querySelector('.map__pin');
+
+var clonePins = function (pin) {
+  var mapPinElement = mapPinTemplate.cloneNode(true);
+  mapPinElement.querySelector('img').src = pin.author.avatar;
+  mapPinElement.querySelector('img').alt = pin.offer.title;
+  mapPinElement.style.left = (pin.location.x - 25) + 'px';
+  mapPinElement.style.top = (pin.location.y - 70) + 'px';
+  return mapPinElement;
+}
+
+var renderPins = function () {
+  var fragment = document.createDocumentFragment();
+  for (var i = 0; i < MAX_AMOUNT; i++) {
+    fragment.appendChild(clonePins(getAdverts()[i]));
+  }
+  mapPinsBlock.appendChild(fragment);
+}
+
+renderPins();

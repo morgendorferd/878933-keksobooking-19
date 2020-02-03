@@ -35,6 +35,8 @@ var mapPinTemplate = document.querySelector('#pin')
    .content
    .querySelector('.map__pin');
 
+var mapPinMain = document.querySelector('.map__pin--main');
+
 // получить случайное число, включающее min и max
 var getRandomIntInclusive = function (min, max) {
   min = Math.ceil(min);
@@ -105,8 +107,7 @@ var getAdverts = function () {
 
 var adverts = getAdverts();
 
-// убираем класс map--faded
-map.classList.remove('map--faded');
+
 
 var clonePins = function (item) {
   var mapPinElement = mapPinTemplate.cloneNode(true);
@@ -118,12 +119,39 @@ var clonePins = function (item) {
   return mapPinElement;
 };
 
-var renderPins = function () {
-  var fragment = document.createDocumentFragment();
-  for (var i = 0; i < MAX_AMOUNT; i++) {
-    fragment.appendChild(clonePins(adverts[i]));
-  }
-  mapPinsBlock.appendChild(fragment);
-};
+// var renderPins = function () {
+//   var fragment = document.createDocumentFragment();
+//   for (var i = 0; i < MAX_AMOUNT; i++) {
+//     fragment.appendChild(clonePins(adverts[i]));
+//   }
+//   mapPinsBlock.appendChild(fragment);
+// };
+//
+// renderPins();
 
-renderPins();
+var formElements = document.querySelectorAll('.ad-form input, .ad-form select');
+
+for (var i = 0; i < formElements.length - 1; i++) {
+  formElements[i].setAttribute('disabled', 'disabled');
+}
+
+console.log(mapPinMain);
+
+var activateMap = function () {
+  for (var i = 0; i < formElements.length - 1; i++) {
+    formElements[i].removeAttribute('disabled', 'disabled');
+  }
+  map.classList.remove('map--faded');
+}
+
+mapPinMain.addEventListener('mousedown', function (evt) {
+  if (evt.which === 1) {
+    activateMap();
+  }
+});
+
+mapPinMain.addEventListener('keydown', function (evt) {
+  if (evt.key === 'Enter') {
+    activateMap();
+  }
+})

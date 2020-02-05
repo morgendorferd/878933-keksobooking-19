@@ -27,7 +27,7 @@
 //   }
 // };
 
-var MAP_PIN_SIZE = {
+var MAP_PIN = {
   width: 65,
   height: 87
 };
@@ -46,11 +46,9 @@ var formElements = document.querySelectorAll('.ad-form input, .ad-form select');
 
 var inputAddress = document.querySelector('#address');
 
-var mapPinMainX = Math.floor(parseInt(mapPinMain.style.left) + MAP_PIN_SIZE.width/2);
+var mapPinMainX = Math.floor(parseInt(mapPinMain.style.left, 10) + MAP_PIN.width / 2);
 
-var mapPinMainY = Math.floor(parseInt(mapPinMain.style.top) + MAP_PIN_SIZE.height);
-
-console.log(mapPinMainX, mapPinMainY);
+var mapPinMainY = Math.floor(parseInt(mapPinMain.style.top, 10) + MAP_PIN.height);
 
 // получить случайное число, включающее min и max
 // var getRandomIntInclusive = function (min, max) {
@@ -146,7 +144,7 @@ for (var i = 0; i < formElements.length - 1; i++) {
   formElements[i].setAttribute('disabled', 'disabled');
 }
 
-inputAddress.setAttribute('value', parseInt(mapPinMain.style.left) + ', ' + parseInt(mapPinMain.style.top));
+inputAddress.setAttribute('value', parseInt(mapPinMain.style.left, 10) + ', ' + parseInt(mapPinMain.style.top, 10));
 
 var mapPinMainClickHandler = function () {
   for (i = 0; i < formElements.length - 1; i++) {

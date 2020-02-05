@@ -27,6 +27,11 @@
 //   }
 // };
 
+var MAP_PIN_SIZE = {
+  width: 65,
+  height: 87
+};
+
 var map = document.querySelector('.map');
 
 // var mapPinsBlock = document.querySelector('.map__pins');
@@ -36,6 +41,16 @@ var map = document.querySelector('.map');
 //    .querySelector('.map__pin');
 
 var mapPinMain = document.querySelector('.map__pin--main');
+
+var formElements = document.querySelectorAll('.ad-form input, .ad-form select');
+
+var inputAddress = document.querySelector('#address');
+
+var mapPinMainX = Math.floor(parseInt(mapPinMain.style.left) + MAP_PIN_SIZE.width/2);
+
+var mapPinMainY = Math.floor(parseInt(mapPinMain.style.top) + MAP_PIN_SIZE.height);
+
+console.log(mapPinMainX, mapPinMainY);
 
 // получить случайное число, включающее min и max
 // var getRandomIntInclusive = function (min, max) {
@@ -127,27 +142,29 @@ var mapPinMain = document.querySelector('.map__pin--main');
 //
 // renderPins();
 
-var formElements = document.querySelectorAll('.ad-form input, .ad-form select');
-
 for (var i = 0; i < formElements.length - 1; i++) {
   formElements[i].setAttribute('disabled', 'disabled');
 }
 
-var activateMap = function () {
+inputAddress.setAttribute('value', parseInt(mapPinMain.style.left) + ', ' + parseInt(mapPinMain.style.top));
+
+var mapPinMainClickHandler = function () {
   for (i = 0; i < formElements.length - 1; i++) {
     formElements[i].removeAttribute('disabled', 'disabled');
   }
   map.classList.remove('map--faded');
+
+  inputAddress.setAttribute('value', mapPinMainX + ', ' + mapPinMainY);
 };
 
 mapPinMain.addEventListener('mousedown', function (evt) {
   if (evt.which === 1) {
-    activateMap();
+    mapPinMainClickHandler();
   }
 });
 
 mapPinMain.addEventListener('keydown', function (evt) {
   if (evt.key === 'Enter') {
-    activateMap();
+    mapPinMainClickHandler();
   }
 });

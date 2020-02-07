@@ -28,9 +28,13 @@ var MOCK_DATA = {
 };
 
 var MAP_PIN_MAIN = {
-  width: 65,
-  height: 87
+  width: 62,
+  height: 62
 };
+
+var LEFT_BUTTON = 0;
+
+var KEY_ENTER = 'Enter';
 
 var map = document.querySelector('.map');
 
@@ -44,15 +48,13 @@ var mapPinTemplate = document.querySelector('#pin')
 
 var mapPinMain = document.querySelector('.map__pin--main');
 
-var formElements = document.querySelectorAll('.ad-form input, .ad-form select');
+var formElements = form.querySelectorAll('fieldset');
 
 var addressInput = document.querySelector('#address');
 
-var titleInput = document.querySelector('#title');
-
-var roomNumberSelect = document.querySelector('#room_number');
-
-var capacitySelect = document.querySelector('#capacity');
+// var roomNumberSelect = document.querySelector('#room_number');
+//
+// var capacitySelect = document.querySelector('#capacity');
 
 // получить случайное число, включающее min и max
 var getRandomIntInclusive = function (min, max) {
@@ -142,62 +144,60 @@ var renderPins = function () {
   mapPinsBlock.appendChild(fragment);
 };
 
-for (var i = 0; i < formElements.length - 1; i++) {
-  formElements[i].disabled = true;
-}
-
-addressInput.value = parseInt(mapPinMain.style.left, 10) + ', ' + parseInt(mapPinMain.style.top, 10);
-
-var setCoordinates = function () {
-  var coordinates = [
-    Math.floor(parseInt(mapPinMain.style.left, 10) + MAP_PIN_MAIN.width / 2),
-    Math.floor(parseInt(mapPinMain.style.top, 10) + MAP_PIN_MAIN.height)
-  ];
-
-  return coordinates;
-}
-
-var addCoordinates = function (element) {
-  element.value = setCoordinates()[0] + ', ' + setCoordinates()[1];
-}
-
-var deleteClass = function (element, classToDelete) {
-  var arr = element.className ? element.className.split(' ') : [];
-
-  for (var i = 0; i < arr.length; i++) {
-      if (arr[i] == classToDelete){
-          arr.splice(i,1);
-          i--;
-      }
+var disableForm = function () {
+  for (var i = 0; i < formElements.length - 1; i++) {
+    formElements[i].disabled = true;
   }
-  element.className = arr.join(' ');
-}
-
-var mapPinMainClickHandler = function () {
-  for (i = 0; i < formElements.length - 1; i++) {
-    formElements[i].disabled = false;
-  }
-
-  deleteClass(map, 'map--faded');
-
-  deleteClass(form, 'ad-form--disabled');
-
-  renderPins();
-
-  addCoordinates(addressInput);
 };
 
-mapPinMain.addEventListener('mousedown', function (evt) {
-  if (evt.which === 1) {
-    mapPinMainClickHandler();
-  }
-});
+var setCoordinates = function (indent) {
+  var x = Math.floor(parseInt(mapPinMain.style.left, 10) + MAP_PIN_MAIN.width / 2);
+  var y = Math.floor(parseInt(mapPinMain.style.top, 10) + MAP_PIN_MAIN.height / 2 + indent);
 
-mapPinMain.addEventListener('keydown', function (evt) {
-  if (evt.key === 'Enter') {
-    mapPinMainClickHandler();
+  return {
+    x: x,
+    y: y
+  };
+};
+
+var addCoordinates = function (element, indent) {
+  element.value = setCoordinates(indent).x + ', ' + setCoordinates(indent).y;
+};
+
+var deleteClass = function (element, className) {
+  element.classList.remove(className);
+};
+
+disableForm();
+
+addCoordinates(addressInput, 0);
+
+var activatePage = function () {
+  for (var i = 0; i < formElements.length - 1; i++) {
+    formElements[i].disabled = false;
   }
-});
+  deleteClass(map, 'map--faded');
+  deleteClass(form, 'ad-form--disabled');
+  renderPins();
+  addCoordinates(addressInput, 53);
+  mapPinMain.removeEventListener('keydown', mapPinMainKeydownHandler);
+};
+
+var mapPinMainClickHandler = function (evt) {
+  if (evt.button === LEFT_BUTTON) {
+    activatePage();
+  }
+};
+
+var mapPinMainKeydownHandler = function (evt) {
+  if (evt.key === KEY_ENTER) {
+    activatePage();
+  }
+};
+
+mapPinMain.addEventListener('mousedown', mapPinMainClickHandler);
+
+mapPinMain.addEventListener('keydown', mapPinMainKeydownHandler);
 
 // capacitySelect.addEventListener('change', function () {
 //   if (capacitySelect.value >= roomNumberSelect.value) {

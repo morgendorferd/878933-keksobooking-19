@@ -27,12 +27,14 @@ var MOCK_DATA = {
   }
 };
 
-var MAP_PIN = {
+var MAP_PIN_MAIN = {
   width: 65,
   height: 87
 };
 
 var map = document.querySelector('.map');
+
+var form = document.querySelector('.ad-form');
 
 var mapPinsBlock = document.querySelector('.map__pins');
 
@@ -41,10 +43,6 @@ var mapPinTemplate = document.querySelector('#pin')
    .querySelector('.map__pin');
 
 var mapPinMain = document.querySelector('.map__pin--main');
-
-var mapPinMainX = Math.floor(parseInt(mapPinMain.style.left, 10) + MAP_PIN.width / 2);
-
-var mapPinMainY = Math.floor(parseInt(mapPinMain.style.top, 10) + MAP_PIN.height);
 
 var formElements = document.querySelectorAll('.ad-form input, .ad-form select');
 
@@ -144,21 +142,49 @@ var renderPins = function () {
   mapPinsBlock.appendChild(fragment);
 };
 
-renderPins();
-
 for (var i = 0; i < formElements.length - 1; i++) {
-  formElements[i].setAttribute('disabled', 'disabled');
+  formElements[i].disabled = true;
 }
 
-addressInput.setAttribute('value', parseInt(mapPinMain.style.left, 10) + ', ' + parseInt(mapPinMain.style.top, 10));
+addressInput.value = parseInt(mapPinMain.style.left, 10) + ', ' + parseInt(mapPinMain.style.top, 10);
+
+var setCoordinates = function () {
+  var coordinates = [
+    Math.floor(parseInt(mapPinMain.style.left, 10) + MAP_PIN_MAIN.width / 2),
+    Math.floor(parseInt(mapPinMain.style.top, 10) + MAP_PIN_MAIN.height)
+  ];
+
+  return coordinates;
+}
+
+var addCoordinates = function (element) {
+  element.value = setCoordinates()[0] + ', ' + setCoordinates()[1];
+}
+
+var deleteClass = function (element, classToDelete) {
+  var arr = element.className ? element.className.split(' ') : [];
+
+  for (var i = 0; i < arr.length; i++) {
+      if (arr[i] == classToDelete){
+          arr.splice(i,1);
+          i--;
+      }
+  }
+  element.className = arr.join(' ');
+}
 
 var mapPinMainClickHandler = function () {
   for (i = 0; i < formElements.length - 1; i++) {
-    formElements[i].removeAttribute('disabled', 'disabled');
+    formElements[i].disabled = false;
   }
-  map.classList.remove('map--faded');
 
-  addressInput.setAttribute('value', mapPinMainX + ', ' + mapPinMainY);
+  deleteClass(map, 'map--faded');
+
+  deleteClass(form, 'ad-form--disabled');
+
+  renderPins();
+
+  addCoordinates(addressInput);
 };
 
 mapPinMain.addEventListener('mousedown', function (evt) {
@@ -172,3 +198,10 @@ mapPinMain.addEventListener('keydown', function (evt) {
     mapPinMainClickHandler();
   }
 });
+
+// capacitySelect.addEventListener('change', function () {
+//   if (capacitySelect.value >= roomNumberSelect.value) {
+//       capacitySelect.valid = true;
+//       capacitySelect.setCustomValidity('hello')
+//     }
+// })

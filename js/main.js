@@ -52,9 +52,9 @@ var formElements = form.querySelectorAll('fieldset');
 
 var addressInput = document.querySelector('#address');
 
-// var roomNumberSelect = document.querySelector('#room_number');
-//
-// var capacitySelect = document.querySelector('#capacity');
+var roomsSelect = document.querySelector('#room_number');
+
+var guestsSelect = document.querySelector('#capacity');
 
 // получить случайное число, включающее min и max
 var getRandomIntInclusive = function (min, max) {
@@ -199,9 +199,37 @@ mapPinMain.addEventListener('mousedown', mapPinMainClickHandler);
 
 mapPinMain.addEventListener('keydown', mapPinMainKeydownHandler);
 
-// capacitySelect.addEventListener('change', function () {
-//   if (capacitySelect.value >= roomNumberSelect.value) {
-//       capacitySelect.valid = true;
-//       capacitySelect.setCustomValidity('hello')
-//     }
-// })
+var checkValidityGuestsAndRooms = function (element) {
+  var rooms = parseInt(roomsSelect.value);
+  var guests = parseInt(guestsSelect.value);
+
+  if ((rooms < guests) && (rooms !== 100) && (guests !== 0)) {
+    element.setCustomValidity('Максимальное число гостей: ' + rooms)
+    // console.log('Максимальное число гостей: ' + rooms)
+  } else if ((rooms === 100) && (guests !== 0)) {
+    element.setCustomValidity('не для гостей')
+    // console.log('Не для гостей')
+  } else if ((guests === 0) && (rooms !== 100)) {
+    element.setCustomValidity('этот вариант для гостей')
+    // console.log('Для гостей');
+  } else {
+    element.setCustomValidity(' ')
+    // console.log('ok')
+  }
+  // element.removeEventListener()
+};
+
+var guestsSelectChangeHandler = function () {
+  // console.log(guestsSelect.value);
+  checkValidityGuestsAndRooms(guestsSelect);
+}
+
+var roomsSelectChangeHandler = function () {
+  // console.log(roomsSelect.value);
+  checkValidityGuestsAndRooms(roomsSelect);
+}
+
+
+guestsSelect.addEventListener('change', guestsSelectChangeHandler);
+
+roomsSelect.addEventListener('change', roomsSelectChangeHandler);

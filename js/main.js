@@ -199,36 +199,32 @@ mapPinMain.addEventListener('mousedown', mapPinMainClickHandler);
 
 mapPinMain.addEventListener('keydown', mapPinMainKeydownHandler);
 
-var checkValidityGuestsAndRooms = function (element) {
+var checkValidityGuestsAndRooms = function () {
   var rooms = parseInt(roomsSelect.value);
   var guests = parseInt(guestsSelect.value);
 
   if ((rooms < guests) && (rooms !== 100) && (guests !== 0)) {
-    element.setCustomValidity('Максимальное число гостей: ' + rooms)
-    // console.log('Максимальное число гостей: ' + rooms)
+    guestsSelect.setCustomValidity('Максимальное число гостей: ' + rooms);
+    console.log('Максимальное число гостей: ' + rooms);
   } else if ((rooms === 100) && (guests !== 0)) {
-    element.setCustomValidity('не для гостей')
-    // console.log('Не для гостей')
+    guestsSelect.setCustomValidity('не для гостей');
+    console.log('Не для гостей')
   } else if ((guests === 0) && (rooms !== 100)) {
-    element.setCustomValidity('этот вариант для гостей')
-    // console.log('Для гостей');
+    guestsSelect.setCustomValidity('Размещение невозможно');
+    console.log('Размещение невозможно');
   } else {
-    element.setCustomValidity(' ')
-    // console.log('ok')
+    guestsSelect.setCustomValidity('')
+    console.log('ok')
   }
-  // element.removeEventListener()
 };
 
 var guestsSelectChangeHandler = function () {
-  // console.log(guestsSelect.value);
-  checkValidityGuestsAndRooms(guestsSelect);
+  checkValidityGuestsAndRooms();
 }
 
 var roomsSelectChangeHandler = function () {
-  // console.log(roomsSelect.value);
-  checkValidityGuestsAndRooms(roomsSelect);
+  checkValidityGuestsAndRooms();
 }
-
 
 guestsSelect.addEventListener('change', guestsSelectChangeHandler);
 

@@ -190,8 +190,8 @@ mapPinMain.addEventListener('mousedown', mapPinMainClickHandler);
 mapPinMain.addEventListener('keydown', mapPinMainKeydownHandler);
 
 var checkValidityGuestsAndRooms = function () {
-  var rooms = parseInt((roomsSelect.value), 10);
-  var guests = parseInt((guestsSelect.value), 10);
+  var rooms = parseInt((roomsSelect.value),10);
+  var guests = parseInt((guestsSelect.value));
 
   if ((rooms < guests) && (rooms !== 100) && (guests !== 0)) {
     guestsSelect.setCustomValidity('Максимальное число гостей: ' + rooms);
@@ -206,11 +206,11 @@ var checkValidityGuestsAndRooms = function () {
 
 var guestsSelectChangeHandler = function () {
   checkValidityGuestsAndRooms();
-};
+}
 
 var roomsSelectChangeHandler = function () {
   checkValidityGuestsAndRooms();
-};
+}
 
 guestsSelect.addEventListener('change', guestsSelectChangeHandler);
 

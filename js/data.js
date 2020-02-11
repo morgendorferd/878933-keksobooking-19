@@ -28,26 +28,26 @@
   // генерирует объект
   var getItem = function () {
 
-    var x = window.utils.getRandomIntInclusive(MOCK_DATA.location.x[0], MOCK_DATA.location.x[1]);
-    var y = window.utils.getRandomIntInclusive(MOCK_DATA.location.y[0], MOCK_DATA.location.y[1]);
+    var x = window.util.getRandomIntInclusive(MOCK_DATA.location.x[0], MOCK_DATA.location.x[1]);
+    var y = window.util.getRandomIntInclusive(MOCK_DATA.location.y[0], MOCK_DATA.location.y[1]);
 
     var item = {
       author: {
-        avatar: window.utils.getRandomUniqueElement(MOCK_DATA.author.avatar).join()
+        avatar: window.util.getRandomUniqueElement(MOCK_DATA.author.avatar).join()
       },
 
       offer: {
-        title: window.utils.getRandomUniqueElement(MOCK_DATA.offer.title).join(),
+        title: window.util.getRandomUniqueElement(MOCK_DATA.offer.title).join(),
         address: x + ',' + y,
-        price: window.utils.getRandomIntInclusive(MOCK_DATA.offer.price[0], MOCK_DATA.offer.price[1]),
-        type: window.utils.getRandomElement(MOCK_DATA.offer.type),
-        rooms: window.utils.getRandomIntInclusive(MOCK_DATA.offer.rooms[0], MOCK_DATA.offer.rooms[1]),
-        guests: window.utils.getRandomIntInclusive(MOCK_DATA.offer.guests[0], MOCK_DATA.offer.guests[1]),
-        checkin: window.utils.getRandomElement(MOCK_DATA.offer.checkin),
-        checkout: window.utils.getRandomElement(MOCK_DATA.offer.checkout),
-        features: window.utils.getRandomArrayLength(MOCK_DATA.offer.features),
-        description: window.utils.getRandomElement(MOCK_DATA.offer.description),
-        photos: window.utils.getRandomArrayLength(MOCK_DATA.offer.photos)
+        price: window.util.getRandomIntInclusive(MOCK_DATA.offer.price[0], MOCK_DATA.offer.price[1]),
+        type: window.util.getRandomElement(MOCK_DATA.offer.type),
+        rooms: window.util.getRandomIntInclusive(MOCK_DATA.offer.rooms[0], MOCK_DATA.offer.rooms[1]),
+        guests: window.util.getRandomIntInclusive(MOCK_DATA.offer.guests[0], MOCK_DATA.offer.guests[1]),
+        checkin: window.util.getRandomElement(MOCK_DATA.offer.checkin),
+        checkout: window.util.getRandomElement(MOCK_DATA.offer.checkout),
+        features: window.util.getRandomArrayLength(MOCK_DATA.offer.features),
+        description: window.util.getRandomElement(MOCK_DATA.offer.description),
+        photos: window.util.getRandomArrayLength(MOCK_DATA.offer.photos)
       },
 
       location: {

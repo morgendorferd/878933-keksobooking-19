@@ -141,19 +141,23 @@ var activateForm = function () {
   }
 };
 
-var setCoordinates = function (indent) {
-  var x = Math.floor(parseInt(mapPinMain.style.left, 10) + MAP_PIN_MAIN.width / 2);
-  var y = Math.floor(parseInt(mapPinMain.style.top, 10) + MAP_PIN_MAIN.height / 2 + indent);
-
+var setCoordinates = function () {
   return {
-    x: x,
-    y: y
+    x: Math.floor(parseInt(mapPinMain.style.left, 10)),
+    y: Math.floor(parseInt(mapPinMain.style.top, 10))
   };
 };
 
-var addCoordinates = function (element, indent) {
-  element.value = setCoordinates(indent).x + ', ' + setCoordinates(indent).y;
-};
+var addCoordinates = function (indent) {
+  var coordinates = setCoordinates();
+  var x = coordinates.x + MAP_PIN_MAIN.width/2;
+  var y = coordinates.y + MAP_PIN_MAIN.height/2 + indent;
+  addressInput.value = x + ' , ' + y;
+  return {
+    x: x,
+    y: y
+  }
+}
 
 var deleteClass = function (element, className) {
   element.classList.remove(className);
@@ -161,14 +165,14 @@ var deleteClass = function (element, className) {
 
 disableForm();
 
-addCoordinates(addressInput, 0);
+addCoordinates(0);
 
 var activatePage = function () {
   activateForm();
   deleteClass(map, 'map--faded');
   deleteClass(form, 'ad-form--disabled');
   renderPins();
-  addCoordinates(addressInput, 53);
+  addCoordinates(53);
   mapPinMain.removeEventListener('keydown', mapPinMainKeydownHandler);
   mapPinMain.removeEventListener('mousedown', mapPinMainKeydownHandler);
 };

@@ -1,11 +1,6 @@
 'use strict';
 
 (function() {
-  var MAP_PIN_MAIN = {
-    width: 62,
-    height: 62
-  };
-  var mapPinMain = document.querySelector('.map__pin--main');
   var form = document.querySelector('.ad-form');
   var formElements = form.querySelectorAll('fieldset');
   var addressInput = form.querySelector('#address');
@@ -18,35 +13,11 @@
     }
   };
   // разблокирует форму
-  var unDisableForm = function () {
+  var activateForm = function () {
     for (var i = 0; i < formElements.length - 1; i++) {
       formElements[i].disabled = false;
     }
   };
-
-  var setCoordinates = function (indent) {
-    var x = Math.floor(parseInt(mapPinMain.style.left, 10) + MAP_PIN_MAIN.width / 2);
-    var y = Math.floor(parseInt(mapPinMain.style.top, 10) + MAP_PIN_MAIN.height / 2 + indent);
-
-    return {
-      x: x,
-      y: y
-    };
-  };
-
-  // добавляет координаты интупу
-  var addCoordinates = function (element, indent) {
-    element.value = setCoordinates(indent).x + ', ' + setCoordinates(indent).y;
-  };
-
-  disableForm();
-  addCoordinates(addressInput, 0);
-  var activateForm = function () {
-    unDisableForm();
-    window.util.deleteClass(form, 'ad-form--disabled');
-    addCoordinates(addressInput, 53);
-  };
-
   var checkValidityGuestsAndRooms = function () {
     var rooms = parseInt((roomsSelect.value), 10);
     var guests = parseInt((guestsSelect.value), 10);
@@ -68,8 +39,10 @@
   };
   guestsSelect.addEventListener('change', guestsSelectChangeHandler);
   roomsSelect.addEventListener('change', roomsSelectChangeHandler);
+  disableForm();
 
   window.form = {
-    activateForm: activateForm
+    activateForm: activateForm,
+    addressInput: addressInput
   }
 })();

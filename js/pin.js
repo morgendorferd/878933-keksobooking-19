@@ -14,16 +14,18 @@
 
     return mapPinElement;
   };
+
   // рендер пинов
   var renderPins = function () {
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < window.data.MAX_AMOUNT; i++) {
-      fragment.appendChild(clonePins(adverts[i]));
+      fragment.appendChild(clonePins(window.data.adverts[i]));
     }
     mapPinsBlock.appendChild(fragment);
   };
 
   window.pin = {
+    clonePins: clonePins,
     renderPins: renderPins
   }
 })();

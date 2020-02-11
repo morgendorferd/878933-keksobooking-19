@@ -1,12 +1,10 @@
 'use strict';
 
 var MAX_AMOUNT = 8;
-
 var MOCK_DATA = {
   author: {
     avatar: ['img/avatars/user01.png', 'img/avatars/user02.png', 'img/avatars/user03.png', 'img/avatars/user04.png', 'img/avatars/user05.png', 'img/avatars/user06.png', 'img/avatars/user07.png', 'img/avatars/user08.png']
   },
-
   offer: {
     title: ['Предложение 1', 'Предложение 2', 'Предложение 3', 'Предложение 4', 'Предложение 5', 'Предложение 6', 'Предложение 7', 'Предложение 8'],
     address: '0, 130',
@@ -20,20 +18,28 @@ var MOCK_DATA = {
     description: ['Описание 1', 'Описание 2', 'Описание 3', 'Описание 4', 'Описание 5', 'Описание 6', 'Описание 7', 'Описание 8'],
     photos: ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg']
   },
-
   location: {
     x: [0, 1200],
     y: [130, 630]
   }
 };
-
+var MAP_PIN_MAIN = {
+  width: 62,
+  height: 62
+};
+var LEFT_BUTTON = 0;
+var KEY_ENTER = 'Enter';
 var map = document.querySelector('.map');
-
+var form = document.querySelector('.ad-form');
 var mapPinsBlock = document.querySelector('.map__pins');
-
 var mapPinTemplate = document.querySelector('#pin')
    .content
    .querySelector('.map__pin');
+var mapPinMain = document.querySelector('.map__pin--main');
+var formElements = form.querySelectorAll('fieldset');
+var addressInput = document.querySelector('#address');
+var roomsSelect = document.querySelector('#room_number');
+var guestsSelect = document.querySelector('#capacity');
 
 // получить случайное число, включающее min и max
 var getRandomIntInclusive = function (min, max) {
@@ -105,9 +111,6 @@ var getAdverts = function () {
 
 var adverts = getAdverts();
 
-// убираем класс map--faded
-map.classList.remove('map--faded');
-
 var clonePins = function (item) {
   var mapPinElement = mapPinTemplate.cloneNode(true);
   mapPinElement.querySelector('img').src = item.author.avatar;
@@ -126,4 +129,89 @@ var renderPins = function () {
   mapPinsBlock.appendChild(fragment);
 };
 
-renderPins();
+var disableForm = function () {
+  for (var i = 0; i < formElements.length - 1; i++) {
+    formElements[i].disabled = true;
+  }
+};
+
+var activateForm = function () {
+  for (var i = 0; i < formElements.length - 1; i++) {
+    formElements[i].disabled = false;
+  }
+};
+
+var setCoordinates = function (indent) {
+  var x = Math.floor(parseInt(mapPinMain.style.left, 10) + MAP_PIN_MAIN.width / 2);
+  var y = Math.floor(parseInt(mapPinMain.style.top, 10) + MAP_PIN_MAIN.height / 2 + indent);
+
+  return {
+    x: x,
+    y: y
+  };
+};
+
+var addCoordinates = function (element, indent) {
+  element.value = setCoordinates(indent).x + ', ' + setCoordinates(indent).y;
+};
+
+var deleteClass = function (element, className) {
+  element.classList.remove(className);
+};
+
+disableForm();
+
+addCoordinates(addressInput, 0);
+
+var activatePage = function () {
+  activateForm();
+  deleteClass(map, 'map--faded');
+  deleteClass(form, 'ad-form--disabled');
+  renderPins();
+  addCoordinates(addressInput, 53);
+  mapPinMain.removeEventListener('keydown', mapPinMainKeydownHandler);
+  mapPinMain.removeEventListener('mousedown', mapPinMainKeydownHandler);
+};
+
+var mapPinMainClickHandler = function (evt) {
+  if (evt.button === LEFT_BUTTON) {
+    activatePage();
+  }
+};
+
+var mapPinMainKeydownHandler = function (evt) {
+  if (evt.key === KEY_ENTER) {
+    activatePage();
+  }
+};
+
+mapPinMain.addEventListener('mousedown', mapPinMainClickHandler);
+
+mapPinMain.addEventListener('keydown', mapPinMainKeydownHandler);
+
+var checkValidityGuestsAndRooms = function () {
+  var rooms = parseInt((roomsSelect.value), 10);
+  var guests = parseInt((guestsSelect.value), 10);
+
+  if ((rooms < guests) && (rooms !== 100) && (guests !== 0)) {
+    guestsSelect.setCustomValidity('Максимальное число гостей: ' + rooms);
+  } else if ((rooms === 100) && (guests !== 0)) {
+    guestsSelect.setCustomValidity('не для гостей');
+  } else if ((guests === 0) && (rooms !== 100)) {
+    guestsSelect.setCustomValidity('Размещение невозможно');
+  } else {
+    guestsSelect.setCustomValidity('');
+  }
+};
+
+var guestsSelectChangeHandler = function () {
+  checkValidityGuestsAndRooms();
+};
+
+var roomsSelectChangeHandler = function () {
+  checkValidityGuestsAndRooms();
+};
+
+guestsSelect.addEventListener('change', guestsSelectChangeHandler);
+
+roomsSelect.addEventListener('change', roomsSelectChangeHandler);

@@ -32,11 +32,11 @@
   };
 
   window.util = {
-    getRandomIntInclusive: getRandomIntInclusive(),
-    getRandomElement: getRandomElement(),
-    getRandomArrayLength: getRandomArrayLength(),
-    getRandomUniqueElement: getRandomUniqueElement(),
-    deleteClass: deleteClass(),
+    getRandomIntInclusive: getRandomIntInclusive,
+    getRandomElement: getRandomElement,
+    getRandomArrayLength: getRandomArrayLength,
+    getRandomUniqueElement: getRandomUniqueElement,
+    deleteClass: deleteClass,
     LEFT_BUTTON: LEFT_BUTTON,
     KEY_ENTER: KEY_ENTER
   };

@@ -26,15 +26,7 @@
     mapPinsBlock.appendChild(fragment);
   };
 
-  var setCoordinates = function (indent) {
-    var x = Math.floor(parseInt(mapPinMain.style.left, 10) + MAP_PIN_MAIN.width / 2);
-    var y = Math.floor(parseInt(mapPinMain.style.top, 10) + MAP_PIN_MAIN.height / 2 + indent);
 
-    return {
-      x: x,
-      y: y
-    };
-  };
 
   var activateMap = function () {
     util.deleteClass(map, 'map--faded');
@@ -45,21 +37,19 @@
 
   var mapPinMainClickHandler = function (evt) {
     if (evt.button === window.util.LEFT_BUTTON) {
-      activatePage();
+      activateMap();
+      window.form.activateForm;
     }
   };
 
   var mapPinMainKeydownHandler = function (evt) {
     if (evt.key === window.util.KEY_ENTER) {
-      activatePage();
+      activateMap();
+      window.form.activateForm;
     }
   };
 
   mapPinMain.addEventListener('mousedown', mapPinMainClickHandler);
 
   mapPinMain.addEventListener('keydown', mapPinMainKeydownHandler);
-
-  window.map {
-    setCoordinates: setCoordinates(indent)
-  };
 })()

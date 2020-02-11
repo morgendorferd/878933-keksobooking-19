@@ -28,26 +28,26 @@
   // генерирует объект
   var getItem = function () {
 
-    var x = utils.getRandomIntInclusive(MOCK_DATA.location.x[0], MOCK_DATA.location.x[1]);
-    var y = utils.getRandomIntInclusive(MOCK_DATA.location.y[0], MOCK_DATA.location.y[1]);
+    var x = window.utils.getRandomIntInclusive(MOCK_DATA.location.x[0], MOCK_DATA.location.x[1]);
+    var y = window.utils.getRandomIntInclusive(MOCK_DATA.location.y[0], MOCK_DATA.location.y[1]);
 
     var item = {
       author: {
-        avatar: utils.getRandomUniqueElement(MOCK_DATA.author.avatar).join()
+        avatar: window.utils.getRandomUniqueElement(MOCK_DATA.author.avatar).join()
       },
 
       offer: {
-        title: utils.getRandomUniqueElement(MOCK_DATA.offer.title).join(),
+        title: window.utils.getRandomUniqueElement(MOCK_DATA.offer.title).join(),
         address: x + ',' + y,
-        price: utils.getRandomIntInclusive(MOCK_DATA.offer.price[0], MOCK_DATA.offer.price[1]),
-        type: utils.getRandomElement(MOCK_DATA.offer.type),
-        rooms: utils.getRandomIntInclusive(MOCK_DATA.offer.rooms[0], MOCK_DATA.offer.rooms[1]),
-        guests: utils.getRandomIntInclusive(MOCK_DATA.offer.guests[0], MOCK_DATA.offer.guests[1]),
-        checkin: utils.getRandomElement(MOCK_DATA.offer.checkin),
-        checkout: utils.getRandomElement(MOCK_DATA.offer.checkout),
-        features: utils.getRandomArrayLength(MOCK_DATA.offer.features),
-        description: utils.getRandomElement(MOCK_DATA.offer.description),
-        photos: utils.getRandomArrayLength(MOCK_DATA.offer.photos)
+        price: window.utils.getRandomIntInclusive(MOCK_DATA.offer.price[0], MOCK_DATA.offer.price[1]),
+        type: window.utils.getRandomElement(MOCK_DATA.offer.type),
+        rooms: window.utils.getRandomIntInclusive(MOCK_DATA.offer.rooms[0], MOCK_DATA.offer.rooms[1]),
+        guests: window.utils.getRandomIntInclusive(MOCK_DATA.offer.guests[0], MOCK_DATA.offer.guests[1]),
+        checkin: window.utils.getRandomElement(MOCK_DATA.offer.checkin),
+        checkout: window.utils.getRandomElement(MOCK_DATA.offer.checkout),
+        features: window.utils.getRandomArrayLength(MOCK_DATA.offer.features),
+        description: window.utils.getRandomElement(MOCK_DATA.offer.description),
+        photos: window.utils.getRandomArrayLength(MOCK_DATA.offer.photos)
       },
 
       location: {
@@ -74,6 +74,6 @@
 
   window.data = {
     MAX_AMOUNT: MAX_AMOUNT,
-    adverts: adverts;
-  }
+    adverts: adverts
+  };
 })()

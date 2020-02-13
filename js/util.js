@@ -1,6 +1,6 @@
 'use strict';
 
-(function(){
+(function () {
   var LEFT_BUTTON = 0;
   var KEY_ENTER = 'Enter';
 
@@ -40,4 +40,4 @@
     LEFT_BUTTON: LEFT_BUTTON,
     KEY_ENTER: KEY_ENTER
   };
-})()
+})();

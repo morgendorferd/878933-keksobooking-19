@@ -1,6 +1,6 @@
 'use strict';
 
-(function() {
+(function () {
   var mapPinsBlock = document.querySelector('.map__pins');
   var mapPinTemplate = document.querySelector('#pin')
      .content
@@ -16,16 +16,15 @@
   };
 
   // рендер пинов
-  var renderPins = function () {
+  var renderPins = function (array) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < window.data.MAX_AMOUNT; i++) {
-      fragment.appendChild(clonePins(window.data.adverts[i]));
+    for (var i = 0; i < array.length - 1; i++) {
+      fragment.appendChild(clonePins(array[i]));
     }
     mapPinsBlock.appendChild(fragment);
   };
 
   window.pin = {
-    clonePins: clonePins,
-    renderPins: renderPins
-  }
+    render: renderPins
+  };
 })();

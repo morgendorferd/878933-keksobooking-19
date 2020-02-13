@@ -1,6 +1,6 @@
 'use strict';
 
-(function() {
+(function () {
   var MAX_AMOUNT = 8;
   var MOCK_DATA = {
     author: {
@@ -27,15 +27,12 @@
 
   // генерирует объект
   var getItem = function () {
-
     var x = window.util.getRandomIntInclusive(MOCK_DATA.location.x[0], MOCK_DATA.location.x[1]);
     var y = window.util.getRandomIntInclusive(MOCK_DATA.location.y[0], MOCK_DATA.location.y[1]);
-
     var item = {
       author: {
         avatar: window.util.getRandomUniqueElement(MOCK_DATA.author.avatar).join()
       },
-
       offer: {
         title: window.util.getRandomUniqueElement(MOCK_DATA.offer.title).join(),
         address: x + ',' + y,
@@ -49,7 +46,6 @@
         description: window.util.getRandomElement(MOCK_DATA.offer.description),
         photos: window.util.getRandomArrayLength(MOCK_DATA.offer.photos)
       },
-
       location: {
         x: x,
         y: y
@@ -59,10 +55,8 @@
     return item;
   };
 
-  // генериует массив объектов
   var getAdverts = function () {
     var array = [];
-
     for (var i = 0; i < MAX_AMOUNT; i++) {
       array.push(getItem());
     }
@@ -72,8 +66,5 @@
 
   var adverts = getAdverts();
 
-  window.data = {
-    MAX_AMOUNT: MAX_AMOUNT,
-    adverts: adverts
-  };
-})()
+  window.data = adverts;
+})();

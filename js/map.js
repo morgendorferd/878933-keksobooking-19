@@ -40,7 +40,7 @@
     window.pin.render(window.data);
     addCoordinates(53);
     mapPinMain.removeEventListener('keydown', mapPinMainKeydownHandler);
-    mapPinMain.removeEventListener('mousedown', mapPinMainKeydownHandler);
+    mapPinMain.removeEventListener('mousedown', mapPinMainClickHandler);
   };
 
   var mapPinMainClickHandler = function (evt) {

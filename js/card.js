@@ -43,7 +43,6 @@
   //   }
   // }
   var generateFeatures = function(item, cardElement) {
-    console.log(cardElement);
     for (var i = 0; i < item.offer.features.length; i++) {
       var featureItem = document.createElement('li');
       featureItem.className = ('popup__feature popup__feature--') + item.offer.features[i];

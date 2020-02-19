@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var URL = 'https://js.dump.academy/keksobooking/data';
+
   var StatusCode = {
     OK: 200
   };
@@ -28,12 +28,14 @@
   }
 
   var loadData = function (onSuccess, onError) {
+    var URL = 'https://js.dump.academy/keksobooking/data';
     var xhr = createRequest(onSuccess, onError);
     xhr.open('GET', URL);
     xhr.send();
   };
 
   var saveData = function (data, onSuccess, onError) {
+    var URL = 'https://js.dump.academy/keksobooking';
     var xhr = createRequest(onSuccess, onError);
     xhr.open('POST', URL);
     xhr.send(data);

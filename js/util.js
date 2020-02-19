@@ -3,6 +3,7 @@
 (function () {
   var LEFT_BUTTON = 0;
   var KEY_ENTER = 'Enter';
+  var KEY_ESC = 'Esc';
 
   // получить случайное число, включающее min и max
   var getRandomIntInclusive = function (min, max) {

@@ -43,8 +43,12 @@
 
   form.addEventListener('submit', function (evt) {
     window.backend.save(new FormData(form), function (response) {
-      console.log('success!')
+      disableForm();
+      window.modal.openSuccessPopup();
     });
     evt.preventDefault();
 });
+
+
+
 })();

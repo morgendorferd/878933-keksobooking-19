@@ -45,6 +45,8 @@
     window.backend.save(new FormData(form), function (response) {
       disableForm();
       window.modal.openSuccessPopup();
+      window.modal.successPopup.addEventListener('click', window.modal.successPopupClickHandler);
+      window.modal.successPopup.addEventListener('keydown', window.modal.successPopupKeydownHandler);
     });
     evt.preventDefault();
 });

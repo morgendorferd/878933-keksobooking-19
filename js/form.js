@@ -5,6 +5,7 @@
   var formElements = form.querySelectorAll('fieldset');
   var roomsSelect = form.querySelector('#room_number');
   var guestsSelect = form.querySelector('#capacity');
+  var formSubmit = form.querySelector('.ad-form__submit');
 
   var disableForm = function () {
     for (var i = 0; i < formElements.length - 1; i++) {
@@ -39,4 +40,11 @@
   roomsSelect.addEventListener('change', roomsSelectChangeHandler);
 
   disableForm();
+
+  form.addEventListener('submit', function (evt) {
+    window.backend.save(new FormData(form), function (response) {
+      console.log('success!')
+    });
+    evt.preventDefault();
+});
 })();

@@ -49,8 +49,9 @@
     activateForm();
     window.util.deleteClass(map, 'map--faded');
     window.util.deleteClass(form, 'ad-form--disabled');
-    window.download((window.pin.render()), errorHandler);
+    window.backend.load(window.pin.render, errorHandler);
     addCoordinates(53);
+    window.backend.load(window.card.render, errorHandler);
     mapPinMain.removeEventListener('keydown', mapPinMainKeydownHandler);
     mapPinMain.removeEventListener('mousedown', mapPinMainClickHandler);
   };

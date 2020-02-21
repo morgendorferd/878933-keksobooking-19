@@ -1,43 +1,70 @@
 'use strict';
 
 (function () {
-  // находим шаблон, который будем копировать
-  var cardElement = document.querySelector('#card')
+  var cardElementTemplate = document.querySelector('#card')
     .content
     .querySelector('.map__card');
-    // найдем элемент, в который будем вставлять карточку
   var map = document.querySelector('.map');
-  // вставлять перед этим элементом
   var mapFiltertsContainer = document.querySelector('.map__filters-container');
 
-// определяет тип размещения
-  var getType= function (item) {
-    if (item.offer.type === 'flat') {
-      cardElement.querySelector('.popup__type').content = 'Квартира';
-    } else if (item.offer.type === 'bungalo') {
-      cardElement.querySelector('.popup__type').content = 'Бунгало';
-    } else if (item.offer.type === 'house') {
-      cardElement.querySelector('.popup__type').content = 'Дом';
-    } else if (item.offer.type === 'palace') {
-      cardElement.querySelector('.popup__type').content = 'Дворец'
-    } else {
-      cardElement.querySelector('.popup__type').style.display.none;
+  var getType = function (item) {
+    switch (item.offer.type) {
+      case 'flat':
+        return 'Квартира';
+      case 'bungalo':
+        return 'Бунгало';
+      case 'house':
+        return 'Дом';
+      case 'palace':
+        return 'Дворец';
+      default:
+        return '';
     }
-  }
+  };
 
-  var getCard = function (item) {
-    cardElement.querySelector('.popup__title').content = item.offer.title;
-    cardElement.querySelector('.popup__text--address').content = item.offer.address;
-    cardElement.querySelector('.popup__text--price').content = item.offer.price + ' ₽/ночь';
-    cardElement.querySelector('.popup__type').content = getType(item);
-    cardElement.querySelector('.popup__text--capacity').content =  item.offer.rooms + ' комнаты для ' + item.offer.guests + ' гостей';
-    cardElement.querySelector('.popup__text--time').content = 'Заезд после ' + item.offer.checkin + ', выезд до ' + item.offer.checkout;
-    // cardElement.querySelector('.popup__features');
-    cardElement.querySelector('.popup__description').content = item.offer.description;
-    cardElement.querySelector('.popup__photos img').src = item.author.avatar;
+  var generateFeatures = function (item, cardElement) {
+    var fragment = document.createDocumentFragment();
+    for (var i = 0; i < item.offer.features.length; i++) {
+      var featureItem = document.createElement('li');
+      featureItem.className = ('popup__feature popup__feature--') + item.offer.features[i];
+      fragment.appendChild(featureItem);
     }
+    cardElement.querySelector('.popup__features').appendChild(fragment);
+  };
 
-  getCard(window.data[0]);
-  console.log(cardElement.querySelector('.popup__photos img').src)
+  var generatePhotos = function (item, cardElement) {
+    var photoItemTemplate = cardElement.querySelector('.popup__photo');
+    var photoItem = photoItemTemplate.cloneNode(true);
+    var fragment = document.createDocumentFragment();
+    for (var i = 0; i < item.offer.photos.length; i++) {
+      photoItem.src = item.offer.photos[i];
+      fragment.appendChild(photoItem);
+    }
+    cardElement.querySelector('.popup__photo').remove();
+    cardElement.querySelector('.popup__photos').appendChild(fragment);
+  };
 
+  var generateCard = function (item) {
+    var cardElement = cardElementTemplate.cloneNode(true);
+    cardElement.querySelector('.popup__avatar').src = item.author.avatar;
+    cardElement.querySelector('.popup__title').textContent = item.offer.title;
+    cardElement.querySelector('.popup__text--address').textContent = item.offer.address;
+    cardElement.querySelector('.popup__text--price').textContent = item.offer.price + ' ₽/ночь';
+    cardElement.querySelector('.popup__type').textContent = getType(item);
+    cardElement.querySelector('.popup__text--capacity').textContent = item.offer.rooms + ' комнаты для ' + item.offer.guests + ' гостей';
+    cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + item.offer.checkin + ', выезд до ' + item.offer.checkout;
+    generateFeatures(item, cardElement);
+    cardElement.querySelector('.popup__description').textContent = item.offer.description;
+    generatePhotos(item, cardElement);
+
+    return cardElement;
+  };
+
+  var renderCard = function () {
+    map.insertBefore(generateCard(window.data[0]), mapFiltertsContainer);
+  };
+
+  window.card = {
+    render: renderCard
+  };
 })();

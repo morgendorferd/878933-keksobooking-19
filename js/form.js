@@ -39,4 +39,11 @@
   roomsSelect.addEventListener('change', roomsSelectChangeHandler);
 
   disableForm();
+
+  form.addEventListener('submit', function (evt) {
+    window.backend.save(new FormData(form), function () {
+      window.modal.successHandler();
+    });
+    evt.preventDefault();
+  }, window.modal.errorHandler);
 })();

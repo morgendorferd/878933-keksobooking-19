@@ -5,6 +5,7 @@
   var mapPinTemplate = document.querySelector('#pin')
      .content
      .querySelector('.map__pin');
+
   var clonePins = function (item) {
     var mapPinElement = mapPinTemplate.cloneNode(true);
     mapPinElement.querySelector('img').src = item.author.avatar;
@@ -18,7 +19,7 @@
   // рендер пинов
   var renderPins = function (array) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < array.length - 1; i++) {
+    for (var i = 0; i < array.length; i++) {
       fragment.appendChild(clonePins(array[i]));
     }
     mapPinsBlock.appendChild(fragment);

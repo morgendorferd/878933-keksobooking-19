@@ -32,7 +32,6 @@
     cardElement.querySelector('.popup__features').appendChild(fragment);
   };
 
-
   var generatePhotos = function (item, cardElement) {
     var photoItemTemplate = cardElement.querySelector('.popup__photo');
     var photoItem = photoItemTemplate.cloneNode(true);
@@ -63,9 +62,9 @@
 
   var renderCard = function () {
     map.insertBefore(generateCard(window.data[0]), mapFiltertsContainer);
-  }
+  };
 
   window.card = {
     render: renderCard
-  }
+  };
 })();

@@ -1,44 +1,44 @@
 'use strict';
 
-(function() {
+(function () {
   var mainBlock = document.querySelector('main');
   var successPopupTemplate = document.querySelector('#success')
     .content
     .querySelector('.success');
-  var successPopup = successPopupTemplate.cloneNode(true);
   var errorPopupTemplate = document.querySelector('#error')
     .content
     .querySelector('.error');
+  var successPopup = successPopupTemplate.cloneNode(true);
   var errorPopup = errorPopupTemplate.cloneNode(true);
-  successPopup.classList.add('hidden');
-  errorPopup.classList.add('hidden');
-  mainBlock.appendChild(successPopup);
-  mainBlock.appendChild(errorPopup);
 
-  var openSuccessPopup = function () {
-    successPopup.classList.remove('hidden');
+  var successHandler = function () {
+    mainBlock.appendChild(successPopup);
+    successPopup.addEventListener('click', successPopupClickHandler);
+    successPopup.addEventListener('keydown', successPopupKeydownHandler);
   };
 
-  var openErrorPopup = function () {
-    errorPopup.classList.remove('hidden');
+  var errorHandler = function () {
+    mainBlock.appendChild(errorPopup);
+    errorPopup.addEventListener('click', errorPopupClickHandler);
+    errorPopup.addEventListener('keydown', errorPopupKeydownHandler);
   };
 
   var closeSuccessPopup = function () {
-    successPopup.classList.add('hidden');
+    successPopup.remove();
   };
 
   var closeErrorPopup = function () {
-    errorPopup.classList.add('hidden');
+    errorPopup.remove();
   };
 
   var successPopupClickHandler = function (evt) {
     if (evt.button === window.util.LEFT_BUTTON) {
       closeSuccessPopup();
     }
-  }
+  };
 
   var successPopupKeydownHandler = function (evt) {
-    if (evt === window.util.KEY_ESC) {
+    if (evt.key === window.util.KEY_ESC) {
       closeSuccessPopup();
     }
   };
@@ -47,18 +47,20 @@
     if (evt.button === window.util.LEFT_BUTTON) {
       closeErrorPopup();
     }
-  }
+  };
 
   var errorPopupKeydownHandler = function (evt) {
-    if (evt === window.util.KEY_ESC) {
+    if (evt.key === window.util.KEY_ESC) {
       closeErrorPopup();
     }
   };
 
   window.modal = {
     successPopup: successPopup,
-    openSuccessPopup: openSuccessPopup,
+    errorPopup: errorPopup,
+    successHandler: successHandler,
+    errorHandler: errorHandler,
     successPopupClickHandler: successPopupClickHandler,
     successPopupKeydownHandler: successPopupKeydownHandler
-  }
+  };
 })();

@@ -39,6 +39,7 @@
     getRandomUniqueElement: getRandomUniqueElement,
     deleteClass: deleteClass,
     LEFT_BUTTON: LEFT_BUTTON,
-    KEY_ENTER: KEY_ENTER
+    KEY_ENTER: KEY_ENTER,
+    KEY_ESC: KEY_ESC
   };
 })();

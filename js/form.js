@@ -5,7 +5,6 @@
   var formElements = form.querySelectorAll('fieldset');
   var roomsSelect = form.querySelector('#room_number');
   var guestsSelect = form.querySelector('#capacity');
-  var formSubmit = form.querySelector('.ad-form__submit');
 
   var disableForm = function () {
     for (var i = 0; i < formElements.length - 1; i++) {
@@ -42,15 +41,9 @@
   disableForm();
 
   form.addEventListener('submit', function (evt) {
-    window.backend.save(new FormData(form), function (response) {
-      disableForm();
-      window.modal.openSuccessPopup();
-      window.modal.successPopup.addEventListener('click', window.modal.successPopupClickHandler);
-      window.modal.successPopup.addEventListener('keydown', window.modal.successPopupKeydownHandler);
+    window.backend.save(new FormData(form), function () {
+      window.modal.successHandler();
     });
     evt.preventDefault();
-});
-
-
-
+  }, window.modal.errorHandler);
 })();

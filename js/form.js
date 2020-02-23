@@ -6,12 +6,6 @@
   var roomsSelect = form.querySelector('#room_number');
   var guestsSelect = form.querySelector('#capacity');
 
-  var disableForm = function () {
-    formElements.forEach(function (it) {
-      it.disabled = true;
-    });
-  };
-
   var checkValidityGuestsAndRooms = function () {
     var rooms = parseInt((roomsSelect.value), 10);
     var guests = parseInt((guestsSelect.value), 10);
@@ -38,11 +32,10 @@
   guestsSelect.addEventListener('change', guestsSelectChangeHandler);
   roomsSelect.addEventListener('change', roomsSelectChangeHandler);
 
-  disableForm();
-
   form.addEventListener('submit',
     function (evt) {
       window.backend.save(new FormData(form), window.modal.createSuccessPopup, window.modal.createErrorPopup);
+      window.map.deactivatePage();
       evt.preventDefault();
     }
   );

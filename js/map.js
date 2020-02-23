@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  var LEFT_BUTTON = 0;
   var MAP_PIN_MAIN = {
     width: 62,
     height: 62
@@ -34,6 +35,18 @@
     });
   };
 
+  var disableForm = function () {
+    formElements.forEach(function (it) {
+      it.disabled = true;
+    });
+  };
+
+  var deactivatePage = function () {
+    map.classList.add('map--faded');
+    form.classList.add('ad-form--disabled');
+    disableForm();
+  }
+
   var activatePage = function () {
     activateForm();
     window.util.deleteClass(map, 'map--faded');
@@ -46,7 +59,7 @@
   };
 
   var mapPinMainClickHandler = function (evt) {
-    if (evt.button === window.util.LEFT_BUTTON) {
+    if (evt.button === LEFT_BUTTON) {
       activatePage();
     }
   };
@@ -57,6 +70,12 @@
     }
   };
 
+  deactivatePage();
+
   mapPinMain.addEventListener('mousedown', mapPinMainClickHandler);
   mapPinMain.addEventListener('keydown', mapPinMainKeydownHandler);
+
+  window.map = {
+    deactivatePage: deactivatePage
+  }
 })();

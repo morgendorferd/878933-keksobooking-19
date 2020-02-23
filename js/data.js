@@ -57,6 +57,7 @@
 
   var getAdverts = function () {
     var array = [];
+
     for (var i = 0; i < MAX_AMOUNT; i++) {
       array.push(getItem());
     }

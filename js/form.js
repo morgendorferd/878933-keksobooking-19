@@ -7,14 +7,15 @@
   var guestsSelect = form.querySelector('#capacity');
 
   var disableForm = function () {
-    for (var i = 0; i < formElements.length - 1; i++) {
-      formElements[i].disabled = true;
-    }
+    formElements.forEach(function (it) {
+      it.disabled = true;
+    });
   };
 
   var checkValidityGuestsAndRooms = function () {
     var rooms = parseInt((roomsSelect.value), 10);
     var guests = parseInt((guestsSelect.value), 10);
+
     if ((rooms < guests) && (rooms !== 100) && (guests !== 0)) {
       guestsSelect.setCustomValidity('Максимальное число гостей: ' + rooms);
     } else if ((rooms === 100) && (guests !== 0)) {
@@ -35,15 +36,17 @@
   };
 
   guestsSelect.addEventListener('change', guestsSelectChangeHandler);
-
   roomsSelect.addEventListener('change', roomsSelectChangeHandler);
 
   disableForm();
 
-  form.addEventListener('submit', function (evt) {
-    window.backend.save(new FormData(form), function () {
-      window.modal.successHandler();
-    });
-    evt.preventDefault();
-  }, window.modal.errorHandler);
+  form.addEventListener('submit',
+    function (evt) {
+      window.backend.save(new FormData(form),
+        function () {
+          window.modal.createSuccessPopup();
+        });
+        evt.preventDefault();
+    },
+    window.modal.createErrorPopup);
 })();

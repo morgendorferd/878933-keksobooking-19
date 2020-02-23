@@ -8,33 +8,36 @@
   var errorPopupTemplate = document.querySelector('#error')
     .content
     .querySelector('.error');
-  var successPopup = successPopupTemplate.cloneNode(true);
-  var errorPopup = errorPopupTemplate.cloneNode(true);
+    
+  var createSuccessPopup = function () {
+    var successPopup = successPopupTemplate.cloneNode(true);
 
-  var successHandler = function () {
     mainBlock.appendChild(successPopup);
     successPopup.addEventListener('click', successPopupClickHandler);
-    successPopup.addEventListener('keydown', successPopupKeydownHandler);
+    document.addEventListener('keydown', successPopupKeydownHandler);
   };
 
-  var errorHandler = function () {
+  var createErrorPopup = function (errorMessage) {
+    var errorPopup = errorPopupTemplate.cloneNode(true);
+
     mainBlock.appendChild(errorPopup);
+    errorPopup.querySelector('.error__message').textContent = errorMessage;
     errorPopup.addEventListener('click', errorPopupClickHandler);
-    errorPopup.addEventListener('keydown', errorPopupKeydownHandler);
+    document.addEventListener('keydown', errorPopupKeydownHandler);
   };
 
   var closeSuccessPopup = function () {
     successPopup.remove();
+    document.removeEventListener('keydown');
   };
 
   var closeErrorPopup = function () {
     errorPopup.remove();
+    document.removeEventListener('keydown');
   };
 
   var successPopupClickHandler = function (evt) {
-    if (evt.button === window.util.LEFT_BUTTON) {
-      closeSuccessPopup();
-    }
+    closeSuccessPopup();
   };
 
   var successPopupKeydownHandler = function (evt) {
@@ -44,9 +47,7 @@
   };
 
   var errorPopupClickHandler = function (evt) {
-    if (evt.button === window.util.LEFT_BUTTON) {
-      closeErrorPopup();
-    }
+    closeErrorPopup();
   };
 
   var errorPopupKeydownHandler = function (evt) {
@@ -58,8 +59,8 @@
   window.modal = {
     successPopup: successPopup,
     errorPopup: errorPopup,
-    successHandler: successHandler,
-    errorHandler: errorHandler,
+    createSuccessPopup: createSuccessPopup,
+    createErrorPopup: createErrorPopup,
     successPopupClickHandler: successPopupClickHandler,
     successPopupKeydownHandler: successPopupKeydownHandler
   };

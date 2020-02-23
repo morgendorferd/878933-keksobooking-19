@@ -24,11 +24,12 @@
 
   var generateFeatures = function (item, cardElement) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < item.offer.features.length; i++) {
+
+    item.forEach(function (it) {
       var featureItem = document.createElement('li');
-      featureItem.className = ('popup__feature popup__feature--') + item.offer.features[i];
+      featureItem.className = ('popup__feature popup__feature--') + it.offer.features;
       fragment.appendChild(featureItem);
-    }
+    });
     cardElement.querySelector('.popup__features').appendChild(fragment);
   };
 
@@ -36,16 +37,18 @@
     var photoItemTemplate = cardElement.querySelector('.popup__photo');
     var photoItem = photoItemTemplate.cloneNode(true);
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < item.offer.photos.length; i++) {
-      photoItem.src = item.offer.photos[i];
+
+    item.forEach(function (it) {
+      photoItem.src = it.offer.photos;
       fragment.appendChild(photoItem);
-    }
+    })
     cardElement.querySelector('.popup__photo').remove();
     cardElement.querySelector('.popup__photos').appendChild(fragment);
   };
 
   var generateCard = function (item) {
     var cardElement = cardElementTemplate.cloneNode(true);
+
     cardElement.querySelector('.popup__avatar').src = item.author.avatar;
     cardElement.querySelector('.popup__title').textContent = item.offer.title;
     cardElement.querySelector('.popup__text--address').textContent = item.offer.address;
@@ -60,8 +63,8 @@
     return cardElement;
   };
 
-  var renderCard = function () {
-    map.insertBefore(generateCard(window.data[0]), mapFiltertsContainer);
+  var renderCard = function (item) {
+    map.insertBefore(generateCard(item), mapFiltertsContainer);
   };
 
   window.card = {

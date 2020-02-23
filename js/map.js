@@ -22,15 +22,16 @@
     var coordinates = setCoordinates();
     var x = coordinates.x + MAP_PIN_MAIN.width / 2;
     var y = coordinates.y + MAP_PIN_MAIN.height / 2 + indent;
+
     addressInput.value = x + ' , ' + y;
   };
 
   addCoordinates(0);
 
   var activateForm = function () {
-    for (var i = 0; i < formElements.length - 1; i++) {
-      formElements[i].disabled = false;
-    }
+    formElements.forEach(function (it) {
+      it.disabled = false;
+    });
   };
 
   var activatePage = function () {
@@ -57,6 +58,5 @@
   };
 
   mapPinMain.addEventListener('mousedown', mapPinMainClickHandler);
-
   mapPinMain.addEventListener('keydown', mapPinMainKeydownHandler);
 })();

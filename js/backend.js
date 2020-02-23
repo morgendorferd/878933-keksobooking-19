@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-
   var StatusCode = {
     OK: 200
   };
@@ -9,6 +8,7 @@
   var TIMEOUT_IN_MS = 10000;
   var createRequest = function (onSuccess, onError) {
     var xhr = new XMLHttpRequest();
+
     xhr.responseType = 'json';
     xhr.addEventListener('load', function () {
       if (xhr.status === StatusCode.OK) {
@@ -30,12 +30,14 @@
 
   var loadData = function (onSuccess, onError) {
     var xhr = createRequest(onSuccess, onError);
+
     xhr.open('GET', URL + '/data');
     xhr.send();
   };
 
   var saveData = function (data, onSuccess, onError) {
     var xhr = createRequest(onSuccess, onError);
+    
     xhr.open('POST', URL);
     xhr.send(data);
   };

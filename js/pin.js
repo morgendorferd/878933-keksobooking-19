@@ -5,9 +5,11 @@
   var mapPinTemplate = document.querySelector('#pin')
      .content
      .querySelector('.map__pin');
+  var mapPin = document.querySelector('.map__pin');
 
   var clonePins = function (item) {
     var mapPinElement = mapPinTemplate.cloneNode(true);
+
     mapPinElement.querySelector('img').src = item.author.avatar;
     mapPinElement.querySelector('img').alt = item.offer.title;
     mapPinElement.style.left = (item.location.x - 25) + 'px';
@@ -16,14 +18,18 @@
     return mapPinElement;
   };
 
-  // рендер пинов
   var renderPins = function (array) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < array.length; i++) {
-      fragment.appendChild(clonePins(array[i]));
-    }
+
+    array.forEach(function (it) {
+      fragment.appendChild(clonePins(it));
+    });
     mapPinsBlock.appendChild(fragment);
   };
+
+  mapPin.addEventListener('click', function () {
+    window.backend.load(window.card.render, window.modal.errorHandler)
+  })
 
   window.pin = {
     render: renderPins

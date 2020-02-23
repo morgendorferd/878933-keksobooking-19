@@ -41,7 +41,7 @@
     item.forEach(function (it) {
       photoItem.src = it.offer.photos;
       fragment.appendChild(photoItem);
-    })
+    });
     cardElement.querySelector('.popup__photo').remove();
     cardElement.querySelector('.popup__photos').appendChild(fragment);
   };

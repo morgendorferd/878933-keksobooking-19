@@ -8,12 +8,12 @@
   var errorPopupTemplate = document.querySelector('#error')
     .content
     .querySelector('.error');
-    
+
   var createSuccessPopup = function () {
     var successPopup = successPopupTemplate.cloneNode(true);
 
     mainBlock.appendChild(successPopup);
-    successPopup.addEventListener('click', successPopupClickHandler);
+    successPopup.addEventListener('click', closeSuccessPopup);
     document.addEventListener('keydown', successPopupKeydownHandler);
   };
 
@@ -27,16 +27,16 @@
   };
 
   var closeSuccessPopup = function () {
-    successPopup.remove();
-    document.removeEventListener('keydown');
+    document.querySelector('.success').remove();
+    document.removeEventListener('keydown', successPopupKeydownHandler);
   };
 
   var closeErrorPopup = function () {
-    errorPopup.remove();
-    document.removeEventListener('keydown');
+    document.querySelector('.error').remove();
+    document.removeEventListener('keydown', errorPopupKeydownHandler);
   };
 
-  var successPopupClickHandler = function (evt) {
+  var successPopupClickHandler = function () {
     closeSuccessPopup();
   };
 
@@ -57,11 +57,7 @@
   };
 
   window.modal = {
-    successPopup: successPopup,
-    errorPopup: errorPopup,
     createSuccessPopup: createSuccessPopup,
-    createErrorPopup: createErrorPopup,
-    successPopupClickHandler: successPopupClickHandler,
-    successPopupKeydownHandler: successPopupKeydownHandler
+    createErrorPopup: createErrorPopup
   };
 })();

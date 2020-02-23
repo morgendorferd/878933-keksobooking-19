@@ -42,11 +42,8 @@
 
   form.addEventListener('submit',
     function (evt) {
-      window.backend.save(new FormData(form),
-        function () {
-          window.modal.createSuccessPopup();
-        });
-        evt.preventDefault();
-    },
-    window.modal.createErrorPopup);
+      window.backend.save(new FormData(form), window.modal.createSuccessPopup, window.modal.createErrorPopup);
+      evt.preventDefault();
+    }
+  );
 })();

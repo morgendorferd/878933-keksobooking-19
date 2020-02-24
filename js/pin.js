@@ -5,18 +5,23 @@
   var mapPinTemplate = document.querySelector('#pin')
      .content
      .querySelector('.map__pin');
-  var mapPin = document.querySelector('.map__pin');
 
   var clonePins = function (item) {
+    console.log(item);
     var mapPinElement = mapPinTemplate.cloneNode(true);
 
     mapPinElement.querySelector('img').src = item.author.avatar;
     mapPinElement.querySelector('img').alt = item.offer.title;
     mapPinElement.style.left = (item.location.x - 25) + 'px';
     mapPinElement.style.top = (item.location.y - 70) + 'px';
-    // mapPinElement.addEventListener('click', mapPinElementClickHandler);
+    mapPinElement.addEventListener('click', mapPinElementClickHandler);
 
     return mapPinElement;
+  };
+
+  var mapPinElementClickHandler = function (evt) {
+    evt.preventDefault();
+    window.card.render();
   };
 
   var renderPins = function (array) {
@@ -36,10 +41,6 @@
       }
     });
   };
-
-  mapPin.addEventListener('click', function () {
-    window.backend.load(window.card.render, window.modal.errorHandler);
-  });
 
   window.pin = {
     render: renderPins,

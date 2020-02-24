@@ -25,9 +25,9 @@
   var generateFeatures = function (item, cardElement) {
     var fragment = document.createDocumentFragment();
 
-    item.forEach(function (it) {
+    item.offer.features.forEach(function (it) {
       var featureItem = document.createElement('li');
-      featureItem.className = ('popup__feature popup__feature--') + it.offer.features;
+      featureItem.className = ('popup__feature popup__feature--') + it;
       fragment.appendChild(featureItem);
     });
     cardElement.querySelector('.popup__features').appendChild(fragment);
@@ -38,8 +38,8 @@
     var photoItem = photoItemTemplate.cloneNode(true);
     var fragment = document.createDocumentFragment();
 
-    item.forEach(function (it) {
-      photoItem.src = it.offer.photos;
+    item.offer.photos.forEach(function (it) {
+      photoItem.src = it;
       fragment.appendChild(photoItem);
     });
     cardElement.querySelector('.popup__photo').remove();
@@ -48,6 +48,7 @@
 
   var generateCard = function (item) {
     var cardElement = cardElementTemplate.cloneNode(true);
+    console.log(item);
 
     cardElement.querySelector('.popup__avatar').src = item.author.avatar;
     cardElement.querySelector('.popup__title').textContent = item.offer.title;

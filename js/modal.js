@@ -46,7 +46,7 @@
     }
   };
 
-  var errorPopupClickHandler = function (evt) {
+  var errorPopupClickHandler = function () {
     closeErrorPopup();
   };
 
@@ -57,7 +57,7 @@
   };
 
   window.modal = {
-    createSuccessPopup: createSuccessPopup,
-    createErrorPopup: createErrorPopup
+    createSuccess: createSuccessPopup,
+    createError: createErrorPopup
   };
 })();

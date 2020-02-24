@@ -9,6 +9,8 @@
   var form = document.querySelector('.ad-form');
   var formElements = form.querySelectorAll('fieldset');
   var addressInput = form.querySelector('#address');
+  var filters = document.querySelector('.map__filters');
+  var filtersElements = filters.querySelectorAll('select, fieldset');
   var map = document.querySelector('.map');
   var mapPinMain = document.querySelector('.map__pin--main');
 
@@ -35,8 +37,20 @@
     });
   };
 
+  var activateFilters = function () {
+    filtersElements.forEach(function (it) {
+      it.disabled = false;
+    });
+  };
+
   var disableForm = function () {
     formElements.forEach(function (it) {
+      it.disabled = true;
+    });
+  };
+
+  var disableFilters = function () {
+    filtersElements.forEach(function (it) {
       it.disabled = true;
     });
   };
@@ -45,10 +59,12 @@
     map.classList.add('map--faded');
     form.classList.add('ad-form--disabled');
     disableForm();
-  }
+    disableFilters();
+  };
 
   var activatePage = function () {
     activateForm();
+    activateFilters();
     window.util.deleteClass(map, 'map--faded');
     window.util.deleteClass(form, 'ad-form--disabled');
     window.backend.load(window.pin.render, window.modal.errorHandler);
@@ -78,5 +94,5 @@
   window.map = {
     addCoordinates: addCoordinates,
     deactivatePage: deactivatePage
-  }
+  };
 })();

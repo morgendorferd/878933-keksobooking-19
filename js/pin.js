@@ -31,15 +31,15 @@
   var deletePins = function () {
     var pins = document.querySelectorAll('.map__pin');
     pins.forEach(function (it) {
-      if(!it.classList.contains('map__pin--main')) {
+      if (!it.classList.contains('map__pin--main')) {
         it.remove();
       }
-    })
-  }
+    });
+  };
 
   mapPin.addEventListener('click', function () {
-    window.backend.load(window.card.render, window.modal.errorHandler)
-  })
+    window.backend.load(window.card.render, window.modal.errorHandler);
+  });
 
   window.pin = {
     render: renderPins,

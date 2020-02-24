@@ -2,7 +2,6 @@
 
 (function () {
   var SUCCESS_CODE = 200;
-
   var codeToMessage = {
     400: 'Неверный запрос',
     401: 'Пользователь не авторизован',

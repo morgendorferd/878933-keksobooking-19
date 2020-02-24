@@ -29,14 +29,17 @@
     checkValidityGuestsAndRooms();
   };
 
+  var successFormHandler = function (evt) {
+    evt.preventDefault();
+    window.backend.save(new FormData(form), window.modal.createSuccessPopup, window.modal.createErrorPopup);
+    window.map.deactivatePage();
+    window.pin.delete();
+    form.reset();
+    window.map.addCoordinates(53);
+  }
+
   guestsSelect.addEventListener('change', guestsSelectChangeHandler);
   roomsSelect.addEventListener('change', roomsSelectChangeHandler);
 
-  form.addEventListener('submit',
-    function (evt) {
-      window.backend.save(new FormData(form), window.modal.createSuccessPopup, window.modal.createErrorPopup);
-      window.map.deactivatePage();
-      evt.preventDefault();
-    }
-  );
+  form.addEventListener('submit', successFormHandler);
 })();

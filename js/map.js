@@ -76,6 +76,7 @@
   mapPinMain.addEventListener('keydown', mapPinMainKeydownHandler);
 
   window.map = {
+    addCoordinates: addCoordinates,
     deactivatePage: deactivatePage
   }
 })();

@@ -13,7 +13,7 @@
     var successPopup = successPopupTemplate.cloneNode(true);
 
     mainBlock.appendChild(successPopup);
-    successPopup.addEventListener('click', closeSuccessPopup);
+    successPopup.addEventListener('click', successPopupClickHandler);
     document.addEventListener('keydown', successPopupKeydownHandler);
   };
 

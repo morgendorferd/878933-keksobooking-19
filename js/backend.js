@@ -2,7 +2,8 @@
 
 (function () {
   var SUCCESS_CODE = 200;
-  var ErrorMessage = {
+
+  var codeToMessage = {
     400: 'Неверный запрос',
     401: 'Пользователь не авторизован',
     403: 'Доступ запрещен',
@@ -20,7 +21,7 @@
       if (xhr.status === SUCCESS_CODE) {
         onSuccess(xhr.response);
       } else {
-        onError('Статус ответа: ' + xhr.status + '. ' + ErrorMessage.xhr.status);
+        onError('Статус ответа: ' + xhr.status + '. ' + codeToMessage[xhr.status]);
       }
     });
     xhr.addEventListener('error', function () {

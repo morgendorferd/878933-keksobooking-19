@@ -59,9 +59,20 @@
     generateFeatures(item, cardElement);
     cardElement.querySelector('.popup__description').textContent = item.offer.description;
     generatePhotos(item, cardElement);
+    cardElement.addEventListener('keydown', cardElementClickHandler);
 
     return cardElement;
   };
+
+  var closeCardElement = function () {
+    event.target.remove();
+  }
+
+  var cardElementKeydownHandler = function (evt) {
+    if (evt.key === window.util.KEY_ESC) {
+      closeCardElement();
+    }
+  }
 
   var renderCard = function (item) {
     map.insertBefore(generateCard(item), mapFiltertsContainer);

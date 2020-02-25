@@ -48,7 +48,6 @@
 
   var generateCard = function (item) {
     var cardElement = cardElementTemplate.cloneNode(true);
-    console.log(item);
 
     cardElement.querySelector('.popup__avatar').src = item.author.avatar;
     cardElement.querySelector('.popup__title').textContent = item.offer.title;
@@ -60,19 +59,8 @@
     generateFeatures(item, cardElement);
     cardElement.querySelector('.popup__description').textContent = item.offer.description;
     generatePhotos(item, cardElement);
-    cardElement.addEventListener('keydown', cardElementKeydownHandler);
 
     return cardElement;
-  };
-
-  var closeCardElement = function () {
-    event.target.remove();
-  };
-
-  var cardElementKeydownHandler = function (evt) {
-    if (evt.key === window.util.KEY_ESC) {
-      closeCardElement();
-    }
   };
 
   var renderCard = function (item) {

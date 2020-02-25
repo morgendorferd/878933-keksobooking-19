@@ -7,21 +7,24 @@
      .querySelector('.map__pin');
 
   var clonePins = function (item) {
-    console.log(item);
     var mapPinElement = mapPinTemplate.cloneNode(true);
 
     mapPinElement.querySelector('img').src = item.author.avatar;
     mapPinElement.querySelector('img').alt = item.offer.title;
     mapPinElement.style.left = (item.location.x - 25) + 'px';
     mapPinElement.style.top = (item.location.y - 70) + 'px';
-    mapPinElement.addEventListener('click', mapPinElementClickHandler);
+    mapPinElement.addEventListener('click', function () {
+      window.card.render(item);
+      mapPinElement.classList.add('map-pin--active');
+    });
+    mapPinElement.addEventListener('keydown', function (evt) {
+      if (evt.key === window.util.KEY_ENTER) {
+        window.card.render(item);
+        mapPinElement.classList.add('map-pin--active');
+      }
+    });
 
     return mapPinElement;
-  };
-
-  var mapPinElementClickHandler = function (evt) {
-    evt.preventDefault();
-    window.card.render();
   };
 
   var renderPins = function (array) {

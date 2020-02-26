@@ -65,6 +65,28 @@
 
   var renderCard = function (item) {
     map.insertBefore(generateCard(item), mapFiltertsContainer);
+
+    var card = document.querySelector('.map__card');
+    var cardClose = card.querySelector('.popup__close');
+
+    cardClose.addEventListener('click', cardClickHandler);
+    document.addEventListener('keydown', cardKeydownHandler);
+  };
+
+  var closeCard = function () {
+    var card = document.querySelector('.map__card');
+    card.remove();
+  };
+
+  var cardClickHandler = function () {
+    closeCard();
+  };
+
+  var cardKeydownHandler = function (evt) {
+    if (evt.key === window.util.KEY_ESC) {
+      closeCard();
+    }
+    document.removeEventListener('keydown', cardKeydownHandler);
   };
 
   window.card = {

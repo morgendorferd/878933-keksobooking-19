@@ -14,11 +14,19 @@
     mapPinElement.style.left = (item.location.x - 25) + 'px';
     mapPinElement.style.top = (item.location.y - 70) + 'px';
     mapPinElement.addEventListener('click', function () {
+      var card = document.querySelector('.map__card');
+      if (card) {
+        card.remove();
+      }
       window.card.render(item);
       mapPinElement.classList.add('map-pin--active');
     });
     mapPinElement.addEventListener('keydown', function (evt) {
       if (evt.key === window.util.KEY_ENTER) {
+        var card = document.querySelector('.map__card');
+        if (card) {
+          card.remove();
+        }
         window.card.render(item);
         mapPinElement.classList.add('map-pin--active');
       }

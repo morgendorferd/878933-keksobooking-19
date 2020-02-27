@@ -13,6 +13,7 @@
     mapPinElement.querySelector('img').alt = item.offer.title;
     mapPinElement.style.left = (item.location.x - 25) + 'px';
     mapPinElement.style.top = (item.location.y - 70) + 'px';
+
     mapPinElement.addEventListener('click', function () {
       var pins = document.querySelectorAll('.map__pin');
 

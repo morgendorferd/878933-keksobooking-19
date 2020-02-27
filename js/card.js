@@ -67,9 +67,7 @@
     map.insertBefore(generateCard(item), mapFiltertsContainer);
 
     var card = document.querySelector('.map__card');
-    var cardClose = card.querySelector('.popup__close');
-
-    cardClose.addEventListener('click', cardClickHandler);
+    card.querySelector('.popup__close').addEventListener('click', cardClickHandler);
     document.addEventListener('keydown', cardKeydownHandler);
   };
 
@@ -89,7 +87,15 @@
     document.removeEventListener('keydown', cardKeydownHandler);
   };
 
+  var deleteCard = function () {
+    var card = document.querySelector('.map__card');
+    if (card) {
+      card.remove();
+    }
+  };
+
   window.card = {
-    render: renderCard
+    render: renderCard,
+    delete: deleteCard
   };
 })();

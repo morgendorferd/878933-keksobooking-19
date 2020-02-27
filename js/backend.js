@@ -2,6 +2,8 @@
 
 (function () {
   var SUCCESS_CODE = 200;
+  var URL = 'https://js.dump.academy/keksobooking';
+  var TIMEOUT_IN_MS = 10000;
   var codeToMessage = {
     400: 'Неверный запрос',
     401: 'Пользователь не авторизован',
@@ -9,13 +11,13 @@
     404: 'Ничего не найдено',
     500: 'Внутренняя ошибка сервера'
   };
-  var URL = 'https://js.dump.academy/keksobooking';
-  var TIMEOUT_IN_MS = 10000;
+
   var createRequest = function (onSuccess, onError) {
     var xhr = new XMLHttpRequest();
 
     xhr.responseType = 'json';
     xhr.timeout = TIMEOUT_IN_MS;
+
     xhr.addEventListener('load', function () {
       if (xhr.status === SUCCESS_CODE) {
         onSuccess(xhr.response);

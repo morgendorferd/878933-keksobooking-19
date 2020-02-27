@@ -14,22 +14,14 @@
     mapPinElement.style.left = (item.location.x - 25) + 'px';
     mapPinElement.style.top = (item.location.y - 70) + 'px';
     mapPinElement.addEventListener('click', function () {
-      var card = document.querySelector('.map__card');
-      if (card) {
-        card.remove();
-      }
+      var pins = document.querySelectorAll('.map__pin');
+
+      pins.forEach(function (it) {
+        it.classList.remove('map__pin--active');
+      });
+      window.card.delete();
       window.card.render(item);
-      mapPinElement.classList.add('map-pin--active');
-    });
-    mapPinElement.addEventListener('keydown', function (evt) {
-      if (evt.key === window.util.KEY_ENTER) {
-        var card = document.querySelector('.map__card');
-        if (card) {
-          card.remove();
-        }
-        window.card.render(item);
-        mapPinElement.classList.add('map-pin--active');
-      }
+      mapPinElement.classList.add('map__pin--active');
     });
 
     return mapPinElement;

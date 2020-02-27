@@ -69,7 +69,6 @@
     window.util.deleteClass(form, 'ad-form--disabled');
     window.backend.load(window.pin.render, window.modal.errorHandler);
     addCoordinates(53);
-    window.backend.load(window.card.render, window.modal.errorHandler);
     mapPinMain.removeEventListener('keydown', mapPinMainKeydownHandler);
     mapPinMain.removeEventListener('mousedown', mapPinMainClickHandler);
   };

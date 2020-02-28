@@ -35,10 +35,10 @@
 
   var generatePhotos = function (item, cardElement) {
     var photoItemTemplate = cardElement.querySelector('.popup__photo');
-    var photoItem = photoItemTemplate.cloneNode(true);
     var fragment = document.createDocumentFragment();
 
     item.offer.photos.forEach(function (it) {
+      var photoItem = photoItemTemplate.cloneNode(true);
       photoItem.src = it;
       fragment.appendChild(photoItem);
     });

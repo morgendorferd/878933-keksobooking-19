@@ -67,10 +67,10 @@
     activateFilters();
     window.util.deleteClass(map, 'map--faded');
     window.util.deleteClass(form, 'ad-form--disabled');
-    window.backend.load(window.pin.render, window.modal.errorHandler);
+    window.data.defaultAdvert();
     addCoordinates(53);
-    mapPinMain.removeEventListener('keydown', mapPinMainKeydownHandler);
-    mapPinMain.removeEventListener('mousedown', mapPinMainClickHandler);
+    // mapPinMain.removeEventListener('keydown', mapPinMainKeydownHandler);
+    // mapPinMain.removeEventListener('mousedown', mapPinMainClickHandler);
   };
 
   var mapPinMainClickHandler = function (evt) {

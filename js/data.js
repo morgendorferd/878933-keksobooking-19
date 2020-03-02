@@ -19,7 +19,7 @@
   var updateAdvert = function () {
     window.pin.delete();
     window.card.delete();
-    window.pin.render(window.filter.updateSelects(adverts));
+    window.pin.render(window.filter(adverts));
   };
 
   window.data = {

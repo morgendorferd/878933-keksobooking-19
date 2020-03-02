@@ -31,46 +31,32 @@
 
   addCoordinates(0);
 
-  var activateForm = function () {
-    formElements.forEach(function (it) {
-      it.disabled = false;
-    });
-  };
-
-  var activateFilters = function () {
-    filtersElements.forEach(function (it) {
-      it.disabled = false;
-    });
-  };
-
-  var disableForm = function () {
-    formElements.forEach(function (it) {
-      it.disabled = true;
-    });
-  };
-
-  var disableFilters = function () {
-    filtersElements.forEach(function (it) {
-      it.disabled = true;
+  var setDisabled = function (array) {
+    array.forEach(function (it) {
+      if (it.disabled === true) {
+        it.disabled = false;
+      } else {
+        it.disabled = true;
+      }
     });
   };
 
   var deactivatePage = function () {
     map.classList.add('map--faded');
     form.classList.add('ad-form--disabled');
-    disableForm();
-    disableFilters();
+    setDisabled(formElements);
+    setDisabled(filtersElements);
   };
 
   var activatePage = function () {
-    activateForm();
-    activateFilters();
+    setDisabled(formElements);
+    setDisabled(filtersElements);
     window.util.deleteClass(map, 'map--faded');
     window.util.deleteClass(form, 'ad-form--disabled');
     window.data.defaultAdvert();
     addCoordinates(53);
-    // mapPinMain.removeEventListener('keydown', mapPinMainKeydownHandler);
-    // mapPinMain.removeEventListener('mousedown', mapPinMainClickHandler);
+    mapPinMain.removeEventListener('keydown', mapPinMainKeydownHandler);
+    mapPinMain.removeEventListener('mousedown', mapPinMainClickHandler);
   };
 
   var mapPinMainClickHandler = function (evt) {
@@ -85,10 +71,16 @@
     }
   };
 
+  var filtersChangeHandler = function () {
+    window.data.updateAdvert();
+  };
+
   deactivatePage();
 
   mapPinMain.addEventListener('mousedown', mapPinMainClickHandler);
   mapPinMain.addEventListener('keydown', mapPinMainKeydownHandler);
+
+  filters.addEventListener('change', filtersChangeHandler);
 
   window.map = {
     addCoordinates: addCoordinates,

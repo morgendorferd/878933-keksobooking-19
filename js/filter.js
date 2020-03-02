@@ -1,24 +1,29 @@
 'use strict';
 
 (function () {
-  var filter = document.querySelector('.map__filters');
-  var selectType = filter.querySelector('#housing-type');
-  var selectPrice = filter.querySelector('#housing-price');
-  var selectRooms = filter.querySelector('#housing-rooms');
-  var selectGuests = filter.querySelector('#housing-guests');
-  var featuresList = filter.querySelector('#housing-features');
+  var filters = document.querySelector('.map__filters');
 
-  var filterByType = function (data) {
+  var filterByType = function (data, value, filterType) {
     return data.filter(function (item) {
-      return item.offer.type === selectType.value;
+      return item[filterType] === value;
     });
   };
 
-  selectType.addEventListener('change', function () {
-      window.data.updateAdvert();
-  })
+  var updateSelects = function (data) {
+    var selects = filters.querySelectorAll('select');
+    selects.forEach(function (it) {
+      switch (it.id) {
+        case 'housing-type':
+          return filterByType(data, it.value, 'type');
+        case 'housing-rooms':
+          return filterByType(data, it.value, 'rooms');
+        case 'housing-guests':
+          return filterByType(data, it.value, 'guests');
+      }
+    });
+  };
 
   window.filter = {
-    byType: filterByType
-  }
-})()
+    updateSelects: updateSelects
+  };
+})();

@@ -9,7 +9,7 @@
   };
 
   var errorHandler = function (message) {
-    window.modal.createError(mesage);
+    window.modal.createError(message);
   };
 
   var defaultAdvert = function () {
@@ -19,10 +19,8 @@
   var updateAdvert = function () {
     window.pin.delete();
     window.card.delete();
-    window.pin.render(window.filter.byType(adverts));
-  }
-
-  // console.log(defaultAdvert())
+    window.pin.render(window.filter.updateSelects(adverts));
+  };
 
   window.data = {
     defaultAdvert: defaultAdvert,

@@ -24,10 +24,10 @@
           copyData = filterByType(data, it.value, 'type');
           break;
         case 'housing-rooms':
-          copyData = filterByType(data, it.value, 'rooms');
+          copyData = filterByType(data, Number(it.value), 'rooms');
           break;
         case 'housing-guests':
-          copyData = filterByType(data, it.value, 'guests');
+          copyData = filterByType(data, Number(it.value), 'guests');
           break;
       }
     });

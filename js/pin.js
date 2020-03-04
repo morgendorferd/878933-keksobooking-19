@@ -34,6 +34,7 @@
     array.forEach(function (it) {
       fragment.appendChild(clonePins(it));
     });
+
     mapPinsBlock.appendChild(fragment);
   };
 

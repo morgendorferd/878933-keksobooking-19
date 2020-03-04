@@ -5,11 +5,11 @@
 
   var filterByType = function (data, value, filterType) {
     return data.filter(function (item) {
-      return item.offer[filterType] === value;
+      return item.offer[filterType].toString() === value;
     });
   };
 
-  var updateSelects = function (data) {
+  var updateFilters = function (data) {
     var selects = filters.querySelectorAll('select');
 
     selects = Array.from(selects).filter(function (it) {
@@ -21,19 +21,22 @@
     selects.forEach(function (it) {
       switch (it.id) {
         case 'housing-type':
-          copyData = filterByType(data, it.value, 'type');
+          copyData = filterByType(copyData, it.value, 'type');
           break;
         case 'housing-rooms':
-          copyData = filterByType(data, Number(it.value), 'rooms');
+          copyData = filterByType(copyData, it.value, 'rooms');
           break;
         case 'housing-guests':
-          copyData = filterByType(data, Number(it.value), 'guests');
+          copyData = filterByType(copyData, it.value, 'guests');
           break;
       }
     });
 
+    if (copyData.length > 5) {
+      copyData.length = 5;
+    }
     return copyData;
   };
 
-  window.filter = updateSelects;
+  window.filter = updateFilters;
 })();

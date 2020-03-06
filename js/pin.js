@@ -31,6 +31,7 @@
   var renderPins = function (array) {
     var fragment = document.createDocumentFragment();
 
+    array.length = array.length < 5 ? array.length : 5;
     array.forEach(function (it) {
       fragment.appendChild(clonePins(it));
     });

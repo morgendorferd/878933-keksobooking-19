@@ -29,6 +29,8 @@
     checkValidityGuestsAndRooms();
   };
 
+  checkValidityGuestsAndRooms();
+
   var submitFormHandler = function (evt) {
     evt.preventDefault();
     window.backend.save(new FormData(form), window.modal.createSuccess, window.modal.createError);
@@ -36,6 +38,7 @@
     window.pin.delete();
     form.reset();
     window.map.addCoordinates(53);
+
   };
 
   var resetFormClickHandler = function (evt) {

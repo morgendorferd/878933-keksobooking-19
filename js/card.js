@@ -46,6 +46,24 @@
     cardElement.querySelector('.popup__photos').appendChild(fragment);
   };
 
+  var generateRoomsAndGuests = function (rooms, guests) {
+    var guestText = guests === 1 ? ' гостя' : ' гостей';
+    var roomText = '';
+    switch (rooms) {
+      case 1:
+        roomText = ' комната для ';
+        break;
+      case 2:
+      case 3:
+      case 4:
+        roomText = ' комнаты для ';
+        break;
+      default:
+        roomText = ' комнат для ';
+    }
+    return rooms + roomText + guests + guestText;
+  };
+
   var generateCard = function (item) {
     var cardElement = cardElementTemplate.cloneNode(true);
 
@@ -54,7 +72,7 @@
     cardElement.querySelector('.popup__text--address').textContent = item.offer.address;
     cardElement.querySelector('.popup__text--price').textContent = item.offer.price + ' ₽/ночь';
     cardElement.querySelector('.popup__type').textContent = getType(item);
-    cardElement.querySelector('.popup__text--capacity').textContent = item.offer.rooms + ' комнаты для ' + item.offer.guests + ' гостей';
+    cardElement.querySelector('.popup__text--capacity').textContent = generateRoomsAndGuests(item.offer.rooms, item.offer.guests);
     cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + item.offer.checkin + ', выезд до ' + item.offer.checkout;
     generateFeatures(item, cardElement);
     cardElement.querySelector('.popup__description').textContent = item.offer.description;

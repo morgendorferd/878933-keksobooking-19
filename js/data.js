@@ -5,7 +5,7 @@
 
   var successHandler = function (data) {
     adverts = data;
-    window.pin.render(window.filter(data));
+    window.pin.render(window.filter(adverts));
   };
 
   var errorHandler = function (message) {

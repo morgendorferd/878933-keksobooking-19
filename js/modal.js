@@ -8,33 +8,36 @@
   var errorPopupTemplate = document.querySelector('#error')
     .content
     .querySelector('.error');
-  var successPopup = successPopupTemplate.cloneNode(true);
-  var errorPopup = errorPopupTemplate.cloneNode(true);
 
-  var successHandler = function () {
+  var createSuccessPopup = function () {
+    var successPopup = successPopupTemplate.cloneNode(true);
+
     mainBlock.appendChild(successPopup);
     successPopup.addEventListener('click', successPopupClickHandler);
-    successPopup.addEventListener('keydown', successPopupKeydownHandler);
+    document.addEventListener('keydown', successPopupKeydownHandler);
   };
 
-  var errorHandler = function () {
+  var createErrorPopup = function (errorMessage) {
+    var errorPopup = errorPopupTemplate.cloneNode(true);
+
     mainBlock.appendChild(errorPopup);
+    errorPopup.querySelector('.error__message').textContent = errorMessage;
     errorPopup.addEventListener('click', errorPopupClickHandler);
-    errorPopup.addEventListener('keydown', errorPopupKeydownHandler);
+    document.addEventListener('keydown', errorPopupKeydownHandler);
   };
 
   var closeSuccessPopup = function () {
-    successPopup.remove();
+    document.querySelector('.success').remove();
+    document.removeEventListener('keydown', successPopupKeydownHandler);
   };
 
   var closeErrorPopup = function () {
-    errorPopup.remove();
+    document.querySelector('.error').remove();
+    document.removeEventListener('keydown', errorPopupKeydownHandler);
   };
 
-  var successPopupClickHandler = function (evt) {
-    if (evt.button === window.util.LEFT_BUTTON) {
-      closeSuccessPopup();
-    }
+  var successPopupClickHandler = function () {
+    closeSuccessPopup();
   };
 
   var successPopupKeydownHandler = function (evt) {
@@ -43,10 +46,8 @@
     }
   };
 
-  var errorPopupClickHandler = function (evt) {
-    if (evt.button === window.util.LEFT_BUTTON) {
-      closeErrorPopup();
-    }
+  var errorPopupClickHandler = function () {
+    closeErrorPopup();
   };
 
   var errorPopupKeydownHandler = function (evt) {
@@ -56,11 +57,7 @@
   };
 
   window.modal = {
-    successPopup: successPopup,
-    errorPopup: errorPopup,
-    successHandler: successHandler,
-    errorHandler: errorHandler,
-    successPopupClickHandler: successPopupClickHandler,
-    successPopupKeydownHandler: successPopupKeydownHandler
+    createSuccess: createSuccessPopup,
+    createError: createErrorPopup
   };
 })();

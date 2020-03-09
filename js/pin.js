@@ -8,24 +8,48 @@
 
   var clonePins = function (item) {
     var mapPinElement = mapPinTemplate.cloneNode(true);
+
     mapPinElement.querySelector('img').src = item.author.avatar;
     mapPinElement.querySelector('img').alt = item.offer.title;
     mapPinElement.style.left = (item.location.x - 25) + 'px';
     mapPinElement.style.top = (item.location.y - 70) + 'px';
 
+    mapPinElement.addEventListener('click', function () {
+      var pins = document.querySelectorAll('.map__pin');
+
+      pins.forEach(function (it) {
+        it.classList.remove('map__pin--active');
+      });
+      window.card.delete();
+      window.card.render(item);
+      mapPinElement.classList.add('map__pin--active');
+    });
+
     return mapPinElement;
   };
 
-  // рендер пинов
   var renderPins = function (array) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < array.length; i++) {
-      fragment.appendChild(clonePins(array[i]));
-    }
+
+    array.length = array.length < 5 ? array.length : 5;
+    array.forEach(function (it) {
+      fragment.appendChild(clonePins(it));
+    });
+
     mapPinsBlock.appendChild(fragment);
   };
 
+  var deletePins = function () {
+    var pins = document.querySelectorAll('.map__pin');
+    pins.forEach(function (it) {
+      if (!it.classList.contains('map__pin--main')) {
+        it.remove();
+      }
+    });
+  };
+
   window.pin = {
-    render: renderPins
+    render: renderPins,
+    delete: deletePins
   };
 })();

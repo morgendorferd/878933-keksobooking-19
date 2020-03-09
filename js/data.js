@@ -24,7 +24,7 @@
 
   window.data = {
     defaultAdvert: defaultAdvert,
-    updateAdvert: updateAdvert
+    updateAdvert: window.util.debounce(updateAdvert)
   };
 
 })();

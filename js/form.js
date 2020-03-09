@@ -4,7 +4,21 @@
   var form = document.querySelector('.ad-form');
   var roomsSelect = form.querySelector('#room_number');
   var guestsSelect = form.querySelector('#capacity');
+  var timeInSelect = form.querySelector('#timein');
+  var timeOutSelect = form.querySelector('#timeout');
   var formReset = form.querySelector('.ad-form__reset');
+
+  var timeInChangeHandler = function () {
+    timeOutSelect.value = timeInSelect.value;
+  };
+
+  var timeOutChangeHandler = function () {
+    timeInSelect.value = timeOutSelect.value;
+  };
+
+  timeInSelect.addEventListener('change', timeInChangeHandler);
+
+  timeOutSelect.addEventListener('change', timeOutChangeHandler);
 
   var checkValidityGuestsAndRooms = function () {
     var rooms = parseInt((roomsSelect.value), 10);

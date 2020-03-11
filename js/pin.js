@@ -1,6 +1,11 @@
 'use strict';
 
 (function () {
+  var PIN_GEOMETRY = {
+    x: 25,
+    y: 70
+  };
+  var MAX_PIN_AMOUNT = 5;
   var mapPinsBlock = document.querySelector('.map__pins');
   var mapPinTemplate = document.querySelector('#pin')
      .content
@@ -11,8 +16,8 @@
 
     mapPinElement.querySelector('img').src = item.author.avatar;
     mapPinElement.querySelector('img').alt = item.offer.title;
-    mapPinElement.style.left = (item.location.x - 25) + 'px';
-    mapPinElement.style.top = (item.location.y - 70) + 'px';
+    mapPinElement.style.left = (item.location.x - PIN_GEOMETRY.x) + 'px';
+    mapPinElement.style.top = (item.location.y - PIN_GEOMETRY.y) + 'px';
 
     mapPinElement.addEventListener('click', function () {
       var pins = document.querySelectorAll('.map__pin');
@@ -31,7 +36,7 @@
   var renderPins = function (array) {
     var fragment = document.createDocumentFragment();
 
-    array.length = array.length < 5 ? array.length : 5;
+    array.length = array.length < MAX_PIN_AMOUNT ? array.length : MAX_PIN_AMOUNT;
     array.forEach(function (it) {
       fragment.appendChild(clonePins(it));
     });

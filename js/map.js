@@ -4,7 +4,9 @@
   var LEFT_BUTTON = 0;
   var MAP_PIN_MAIN = {
     width: 62,
-    height: 62
+    height: 62,
+    indent: 0,
+    activeIndent: 53
   };
   var form = document.querySelector('.ad-form');
   var formElements = form.querySelectorAll('fieldset');
@@ -29,7 +31,7 @@
     addressInput.value = x + ' , ' + y;
   };
 
-  addCoordinates(0);
+  addCoordinates(MAP_PIN_MAIN.indent);
 
   mapPinMain.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
@@ -90,7 +92,7 @@
     window.util.deleteClass(map, 'map--faded');
     window.util.deleteClass(form, 'ad-form--disabled');
     window.data.defaultAdvert();
-    addCoordinates(53);
+    addCoordinates(MAP_PIN_MAIN.activeIndent);
     mapPinMain.removeEventListener('keydown', mapPinMainKeydownHandler);
     mapPinMain.removeEventListener('mousedown', mapPinMainClickHandler);
   };

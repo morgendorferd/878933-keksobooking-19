@@ -8,6 +8,16 @@
     indent: 0,
     activeIndent: 53
   };
+  var DRAG_LIMIT = {
+    X: {
+      MIN: 0,
+      MAX: 1200
+    },
+    Y: {
+      MIN: 130,
+      MAX: 630
+    }
+  };
   var form = document.querySelector('.ad-form');
   var formElements = form.querySelectorAll('fieldset');
   var addressInput = form.querySelector('#address');
@@ -71,11 +81,7 @@
 
   var setDisabled = function (array) {
     array.forEach(function (it) {
-      if (it.disabled === true) {
-        it.disabled = false;
-      } else {
-        it.disabled = true;
-      }
+      it.disabled = !it.disabled;
     });
   };
 
@@ -110,7 +116,7 @@
   };
 
   var filtersChangeHandler = function () {
-    window.data.updateAdvert();
+    window.util.debounce(window.data.updateAdvert());
   };
 
   deactivatePage();

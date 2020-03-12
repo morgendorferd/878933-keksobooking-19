@@ -1,26 +1,17 @@
 'use strict';
 
 (function () {
+  var TypesMap = {
+    'flat': 'Квартира',
+    'bungalo': 'Бунгало',
+    'house': 'Дом',
+    'palace': 'Дворец'
+  };
   var cardElementTemplate = document.querySelector('#card')
     .content
     .querySelector('.map__card');
   var map = document.querySelector('.map');
   var mapFiltertsContainer = document.querySelector('.map__filters-container');
-
-  var getType = function (item) {
-    switch (item.offer.type) {
-      case 'flat':
-        return 'Квартира';
-      case 'bungalo':
-        return 'Бунгало';
-      case 'house':
-        return 'Дом';
-      case 'palace':
-        return 'Дворец';
-      default:
-        return '';
-    }
-  };
 
   var generateFeatures = function (item, cardElement) {
     var fragment = document.createDocumentFragment();
@@ -71,7 +62,7 @@
     cardElement.querySelector('.popup__title').textContent = item.offer.title;
     cardElement.querySelector('.popup__text--address').textContent = item.offer.address;
     cardElement.querySelector('.popup__text--price').textContent = item.offer.price + ' ₽/ночь';
-    cardElement.querySelector('.popup__type').textContent = getType(item);
+    cardElement.querySelector('.popup__type').textContent = TypesMap[item.offer.type];
     cardElement.querySelector('.popup__text--capacity').textContent = generateRoomsAndGuests(item.offer.rooms, item.offer.guests);
     cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + item.offer.checkin + ', выезд до ' + item.offer.checkout;
     generateFeatures(item, cardElement);

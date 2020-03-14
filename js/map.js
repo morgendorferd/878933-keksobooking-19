@@ -5,6 +5,7 @@
   var MAP_PIN_MAIN = {
     width: 62,
     height: 62,
+    tailHeight: 22,
     indent: 0,
     activeIndent: 53
   };
@@ -64,8 +65,23 @@
         y: moveEvt.clientY
       };
 
-      mapPinMain.style.top = (mapPinMain.offsetTop - shift.y) + 'px';
-      mapPinMain.style.left = (mapPinMain.offsetLeft - shift.x) + 'px';
+      var mapPinPosition = {
+        x: mapPinMain.offsetLeft - shift.x,
+        y: mapPinMain.offsetTop - shift.y
+      };
+
+      if (mapPinPosition.x < DRAG_LIMIT.X.MIN) {
+        mapPinPosition.x = DRAG_LIMIT.X.MIN;
+      } else if (mapPinPosition.x > DRAG_LIMIT.X.MAX) {
+        mapPinPosition.x = DRAG_LIMIT.X.MAX - MAP_PIN_MAIN.width;
+      } else if (mapPinPosition.y < DRAG_LIMIT.Y.MIN) {
+        mapPinPosition.y = DRAG_LIMIT.Y.MIN;
+      } else if (mapPinPosition.y > DRAG_LIMIT.Y.MAX) {
+        mapPinPosition.y = DRAG_LIMIT.Y.MAX;
+      }
+
+      mapPinMain.style.top = mapPinPosition.y + 'px';
+      mapPinMain.style.left = mapPinPosition.x + 'px';
     };
 
     var mouseUpHandler = function (upEvt) {
@@ -115,9 +131,7 @@
     }
   };
 
-  var filtersChangeHandler = function () {
-    window.util.debounce(window.data.updateAdvert());
-  };
+  var filtersChangeHandler = window.util.debounce(window.data.updateAdvert);
 
   deactivatePage();
 

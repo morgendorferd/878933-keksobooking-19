@@ -82,6 +82,7 @@
 
       mapPinMain.style.top = mapPinPosition.y + 'px';
       mapPinMain.style.left = mapPinPosition.x + 'px';
+      addCoordinates(MAP_PIN_MAIN.indent);
     };
 
     var mouseUpHandler = function (upEvt) {

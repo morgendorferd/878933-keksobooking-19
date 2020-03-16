@@ -67,18 +67,9 @@
     window.map.addCoordinates(MAP_PIN_MAIN.activeIndent);
   };
 
-  var resetFormKeydownHandler = function (evt) {
-    evt.preventDefault();
-    if (evt.key === window.util.KEY_ENTER) {
-      form.reset();
-      window.map.addCoordinates(MAP_PIN_MAIN.activeIndent);
-    }
-  };
-
   guestsSelect.addEventListener('change', guestsSelectChangeHandler);
   roomsSelect.addEventListener('change', roomsSelectChangeHandler);
 
   form.addEventListener('submit', submitFormHandler);
   formReset.addEventListener('click', resetFormClickHandler);
-  formReset.addEventListener('keydown', resetFormKeydownHandler);
 })();

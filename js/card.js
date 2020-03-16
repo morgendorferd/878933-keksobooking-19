@@ -10,6 +10,7 @@
   var cardElementTemplate = document.querySelector('#card')
     .content
     .querySelector('.map__card');
+  var photoItemTemplate = cardElementTemplate.querySelector('.popup__photo');
   var map = document.querySelector('.map');
   var mapFiltertsContainer = document.querySelector('.map__filters-container');
 
@@ -28,21 +29,18 @@
     }
   };
 
-  var generatePhotos = function (array, cardElement) {
+  var generatePhotos = function (array, block) {
+    var fragment = document.createDocumentFragment();
+    block.innerHTML = '';
     if (array.length) {
-      var photoItemTemplate = cardElement.querySelector('.popup__photo');
-      var fragment = document.createDocumentFragment();
-
       array.forEach(function (it) {
         var photoItem = photoItemTemplate.cloneNode(true);
         photoItem.src = it;
         fragment.appendChild(photoItem);
       });
-      cardElement.querySelector('.popup__photo').remove();
-      cardElement.querySelector('.popup__photos').appendChild(fragment);
+      block.appendChild(fragment);
     } else {
-      cardElement.querySelector('.popup__photos').classList.add('hidden');
-      cardElement.querySelector('.popup__photo').remove();
+      block.classList.add('hidden');
     }
   };
 
@@ -82,6 +80,7 @@
     var capacity = cardElement.querySelector('.popup__text--capacity');
     var textTime = cardElement.querySelector('.popup__text--time');
     var description = cardElement.querySelector('.popup__description');
+    var photos = cardElement.querySelector('.popup__photos');
 
     avatar.src = checkValue(item.author.avatar, avatar);
     title.textContent = checkValue(item.offer.title, title);
@@ -92,7 +91,7 @@
     textTime.textContent = 'Заезд после ' + item.offer.checkin + ', выезд до ' + item.offer.checkout;
     generateFeatures(item.offer.features, cardElement);
     description.textContent = checkValue(item.offer.description, description);
-    generatePhotos(item.offer.photos, cardElement);
+    generatePhotos(item.offer.photos, photos);
 
     return cardElement;
   };

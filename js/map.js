@@ -40,7 +40,7 @@
     var x = coordinates.x + MAP_PIN_MAIN.width / 2;
     var y = coordinates.y + MAP_PIN_MAIN.height / 2 + indent;
 
-    addressInput.value = x + ' , ' + y;
+    addressInput.value = x + ', ' + y;
   };
 
   addCoordinates(MAP_PIN_MAIN.indent);

@@ -13,11 +13,11 @@
   var map = document.querySelector('.map');
   var mapFiltertsContainer = document.querySelector('.map__filters-container');
 
-  var generateFeatures = function (item, cardElement) {
-    if (item.offer.features.length) {
+  var generateFeatures = function (array, cardElement) {
+    if (array.length) {
       var fragment = document.createDocumentFragment();
 
-      item.offer.features.forEach(function (it) {
+      array.forEach(function (it) {
         var featureItem = document.createElement('li');
         featureItem.className = ('popup__feature popup__feature--') + it;
         fragment.appendChild(featureItem);
@@ -28,12 +28,12 @@
     }
   };
 
-  var generatePhotos = function (item, cardElement) {
-    if (item.offer.photos.length > 0) {
+  var generatePhotos = function (array, cardElement) {
+    if (array.length) {
       var photoItemTemplate = cardElement.querySelector('.popup__photo');
       var fragment = document.createDocumentFragment();
 
-      item.offer.photos.forEach(function (it) {
+      array.forEach(function (it) {
         var photoItem = photoItemTemplate.cloneNode(true);
         photoItem.src = it;
         fragment.appendChild(photoItem);
@@ -71,7 +71,7 @@
     }
   };
 
-  var checkPrice = function(value, block) {
+  var checkPrice = function (value, block) {
     if (value) {
       block.textContent = value + ' ₽/ночь';
     } else {
@@ -113,9 +113,9 @@
     checkType(item.offer.type, type);
     capacity.textContent = generateRoomsAndGuests(item.offer.rooms, item.offer.guests);
     textTime.textContent = 'Заезд после ' + item.offer.checkin + ', выезд до ' + item.offer.checkout;
-    generateFeatures(item, cardElement);
+    generateFeatures(item.offer.features, cardElement);
     checkValue(item.offer.description, description);
-    generatePhotos(item, cardElement);
+    generatePhotos(item.offer.photos, cardElement);
 
     return cardElement;
   };

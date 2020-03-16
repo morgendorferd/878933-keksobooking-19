@@ -42,6 +42,7 @@
       cardElement.querySelector('.popup__photos').appendChild(fragment);
     } else {
       cardElement.querySelector('.popup__photos').classList.add('hidden');
+      cardElement.querySelector('.popup__photo').remove();
     }
   };
 
@@ -64,35 +65,11 @@
   };
 
   var checkValue = function (value, block) {
-    if (value) {
-      block.textContent = value;
-    } else {
+    if (!value) {
       block.classList.add('hidden');
     }
-  };
 
-  var checkPrice = function (value, block) {
-    if (value) {
-      block.textContent = value + ' ₽/ночь';
-    } else {
-      block.classList.add('hidden');
-    }
-  };
-
-  var checkAvatar = function (value, block) {
-    if (value) {
-      block.src = value;
-    } else {
-      block.classList.add('hidden');
-    }
-  };
-
-  var checkType = function (value, block) {
-    if (value) {
-      block.textContent = typeToHouse[value];
-    } else {
-      block.classList.add('hidden');
-    }
+    return value;
   };
 
   var generateCard = function (item) {
@@ -106,15 +83,15 @@
     var textTime = cardElement.querySelector('.popup__text--time');
     var description = cardElement.querySelector('.popup__description');
 
-    checkAvatar(item.author.avatar, avatar);
-    checkValue(item.offer.title, title);
-    checkValue(item.offer.address, address);
-    checkPrice(item.offer.price, price);
-    checkType(item.offer.type, type);
+    avatar.src = checkValue(item.author.avatar, avatar);
+    title.textContent = checkValue(item.offer.title, title);
+    address.textContent = checkValue(item.offer.address, address);
+    price.textContent = checkValue(item.offer.price, price) + ' ₽/ночь';
+    type.textContent = typeToHouse[checkValue(item.offer.type, type)];
     capacity.textContent = generateRoomsAndGuests(item.offer.rooms, item.offer.guests);
     textTime.textContent = 'Заезд после ' + item.offer.checkin + ', выезд до ' + item.offer.checkout;
     generateFeatures(item.offer.features, cardElement);
-    checkValue(item.offer.description, description);
+    description.textContent = checkValue(item.offer.description, description);
     generatePhotos(item.offer.photos, cardElement);
 
     return cardElement;

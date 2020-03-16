@@ -3,7 +3,7 @@
 (function () {
   var KEY_ENTER = 'Enter';
   var KEY_ESC = 'Escape';
-  var DEBOUNCE_INTERVAL = 1000;
+  var DEBOUNCE_INTERVAL = 500;
 
   var deleteClass = function (element, className) {
     element.classList.remove(className);

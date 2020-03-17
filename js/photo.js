@@ -19,8 +19,6 @@
     return photoPreviewImg;
   };
 
-  createPhoto();
-
   var uploadPhoto = function (fileChooser, element) {
     var file = fileChooser.files[0];
     var fileName = file.name.toLowerCase();

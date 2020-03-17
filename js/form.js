@@ -24,6 +24,12 @@
   var typeSelect = form.querySelector('#type');
   var formReset = form.querySelector('.ad-form__reset');
 
+  var setBorder = function (element) {
+    element.style.border = '2px solid red';
+  };
+
+  setBorder(typeSelect);
+
   var timeInChangeHandler = function () {
     timeOutSelect.value = timeInSelect.value;
   };

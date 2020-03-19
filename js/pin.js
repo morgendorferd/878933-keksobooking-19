@@ -2,8 +2,8 @@
 
 (function () {
   var PIN_GEOMETRY = {
-    x: 25,
-    y: 70
+    width: 25,
+    height: 70
   };
   var MAX_PIN_AMOUNT = 5;
   var mapPinsBlock = document.querySelector('.map__pins');
@@ -16,8 +16,8 @@
 
     mapPinElement.querySelector('img').src = item.author.avatar;
     mapPinElement.querySelector('img').alt = item.offer.title;
-    mapPinElement.style.left = (item.location.x - PIN_GEOMETRY.x) + 'px';
-    mapPinElement.style.top = (item.location.y - PIN_GEOMETRY.y) + 'px';
+    mapPinElement.style.left = (item.location.x - PIN_GEOMETRY.width) + 'px';
+    mapPinElement.style.top = (item.location.y - PIN_GEOMETRY.height) + 'px';
 
     mapPinElement.addEventListener('click', function () {
       var pins = document.querySelectorAll('.map__pin');

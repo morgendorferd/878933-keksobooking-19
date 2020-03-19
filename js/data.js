@@ -23,8 +23,8 @@
   };
 
   window.data = {
-    defaultAdvert: defaultAdvert,
-    updateAdvert: updateAdvert
+    load: defaultAdvert,
+    update: updateAdvert
   };
 
 })();

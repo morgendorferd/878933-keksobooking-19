@@ -22,6 +22,7 @@
   };
   var mapPinMain = document.querySelector('.map__pin--main');
   var form = document.querySelector('.ad-form');
+  var titleField = form.querySelector('#title');
   var roomsSelect = form.querySelector('#room_number');
   var guestsSelect = form.querySelector('#capacity');
   var timeInSelect = form.querySelector('#timein');
@@ -42,10 +43,6 @@
     timeInSelect.value = timeOutSelect.value;
   };
 
-  timeInSelect.addEventListener('change', timeInChangeHandler);
-
-  timeOutSelect.addEventListener('change', timeOutChangeHandler);
-
   typeSelect.addEventListener('change', function () {
     priceSelect.min = typeToPrice[typeSelect.value];
     priceSelect.placeholder = typeToPrice[typeSelect.value];
@@ -56,7 +53,7 @@
     var price = priceSelect;
     var priceValue = parseInt((price.value), 10);
 
-    if (priceValue !== typeToPrice[type.value]) {
+    if (priceValue < typeToPrice[type.value]) {
       price.setCustomValidity('Минимальная цена: ' + typeToPrice[type.value]);
       setBorder(price, BORDER_COLOR.invalid);
     } else {
@@ -65,8 +62,24 @@
     }
   };
 
+  var checkValidityTitle = function () {
+    if (titleField.value.length < 30) {
+      titleField.setCustomValidity('Слишком короткое название');
+      setBorder(titleField, BORDER_COLOR.invalid);
+    } else if (titleField.value.length > 100) {
+      titleField.setCustomValidity('Слишком длинное название');
+      setBorder(titleField, BORDER_COLOR.invalid);
+    } else {
+      titleField.setCustomValidity('');
+      setBorder(titleField, BORDER_COLOR.valid);
+    }
+  };
+
+  titleField.addEventListener('change', checkValidityTitle);
   priceSelect.addEventListener('change', checkValidityTypeAndPrice);
   typeSelect.addEventListener('change', checkValidityTypeAndPrice);
+  timeInSelect.addEventListener('change', timeInChangeHandler);
+  timeOutSelect.addEventListener('change', timeOutChangeHandler);
 
   var checkValidityGuestsAndRooms = function () {
     var rooms = parseInt((roomsSelect.value), 10);
@@ -96,7 +109,6 @@
   };
 
   checkValidityGuestsAndRooms();
-  checkValidityTypeAndPrice();
 
   var buttonSubmitClickHandler = function (evt) {
     evt.preventDefault();

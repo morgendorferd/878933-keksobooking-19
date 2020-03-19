@@ -14,6 +14,10 @@
     valid: '#d9d9d3',
     invalid: '#ff0000'
   };
+  var TITLE_LENGTH = {
+    min: 30,
+    max: 100
+  };
   var typeToPrice = {
     'bungalo': 0,
     'flat': 1000,
@@ -63,10 +67,10 @@
   };
 
   var checkValidityTitle = function () {
-    if (titleField.value.length < 30) {
+    if (titleField.value.length < TITLE_LENGTH.min) {
       titleField.setCustomValidity('Слишком короткое название');
       setBorder(titleField, BORDER_COLOR.invalid);
-    } else if (titleField.value.length > 100) {
+    } else if (titleField.value.length > TITLE_LENGTH.max) {
       titleField.setCustomValidity('Слишком длинное название');
       setBorder(titleField, BORDER_COLOR.invalid);
     } else {

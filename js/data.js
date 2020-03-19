@@ -5,7 +5,7 @@
 
   var successHandler = function (data) {
     adverts = data;
-    window.pin.render(window.filter(adverts));
+    window.pin.render(window.filter.update(adverts));
   };
 
   var errorHandler = function (message) {
@@ -19,7 +19,7 @@
   var updateAdvert = function () {
     window.pin.delete();
     window.card.delete();
-    window.pin.render(window.filter(adverts));
+    window.pin.render(window.filter.update(adverts));
   };
 
   window.data = {

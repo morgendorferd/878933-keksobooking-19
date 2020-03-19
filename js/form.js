@@ -118,6 +118,7 @@
     window.map.deactivatePage();
     window.pin.delete();
     form.reset();
+    window.filter.reset();
     window.map.addCoordinates(MAP_PIN_MAIN.activeIndent);
   };
 
@@ -125,6 +126,7 @@
     evt.preventDefault();
 
     form.reset();
+    window.filter.reset();
     window.map.returnPin();
     window.map.addCoordinates(MAP_PIN_MAIN.activeIndent);
   };

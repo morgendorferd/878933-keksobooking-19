@@ -71,5 +71,12 @@
     return copyData;
   };
 
-  window.filter = updateFilters;
+  var resetFilters = function () {
+    filters.reset();
+  };
+
+  window.filter = {
+    update: updateFilters,
+    reset: resetFilters
+  };
 })();

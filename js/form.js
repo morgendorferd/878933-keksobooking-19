@@ -6,9 +6,7 @@
     guests: 0
   };
   var MAP_PIN_MAIN = {
-    activeIndent: 53,
-    defaultX: 570,
-    defaultY: 375
+    activeIndent: 53
   };
   var BORDER_COLOR = {
     valid: '#d9d9d3',
@@ -24,7 +22,6 @@
     'house': 5000,
     'palace': 10000
   };
-  var mapPinMain = document.querySelector('.map__pin--main');
   var form = document.querySelector('.ad-form');
   var titleField = form.querySelector('#title');
   var roomsSelect = form.querySelector('#room_number');
@@ -121,8 +118,6 @@
     window.map.deactivatePage();
     window.pin.delete();
     form.reset();
-    mapPinMain.style.top = MAP_PIN_MAIN.defaultY + 'px';
-    mapPinMain.style.left = MAP_PIN_MAIN.defaultX + 'px';
     window.map.addCoordinates(MAP_PIN_MAIN.activeIndent);
   };
 
@@ -130,8 +125,7 @@
     evt.preventDefault();
 
     form.reset();
-    mapPinMain.style.top = MAP_PIN_MAIN.defaultY + 'px';
-    mapPinMain.style.left = MAP_PIN_MAIN.defaultX + 'px';
+    window.map.returnPin();
     window.map.addCoordinates(MAP_PIN_MAIN.activeIndent);
   };
 

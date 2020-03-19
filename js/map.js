@@ -7,7 +7,9 @@
     height: 62,
     tailHeight: 22,
     indent: 0,
-    activeIndent: 53
+    activeIndent: 53,
+    defaultX: 570,
+    defaultY: 375
   };
   var DRAG_LIMIT = {
     x: {
@@ -41,6 +43,11 @@
     var y = coordinates.y + MAP_PIN_MAIN.height / 2 + indent;
 
     addressInput.value = x + ', ' + y;
+  };
+
+  var setDefaultMapPinMain = function () {
+    mapPinMain.style.top = MAP_PIN_MAIN.defaultY + 'px';
+    mapPinMain.style.left = MAP_PIN_MAIN.defaultX + 'px';
   };
 
   addCoordinates(MAP_PIN_MAIN.indent);
@@ -118,6 +125,8 @@
   var deactivatePage = function () {
     map.classList.add('map--faded');
     form.classList.add('ad-form--disabled');
+    setDefaultMapPinMain();
+    addCoordinates(MAP_PIN_MAIN.activeIndent);
     setDisabled(formElements);
     setDisabled(filtersElements);
     isActive = false;
@@ -149,6 +158,7 @@
 
   window.map = {
     addCoordinates: addCoordinates,
-    deactivatePage: deactivatePage
+    deactivatePage: deactivatePage,
+    returnPin: setDefaultMapPinMain
   };
 })();

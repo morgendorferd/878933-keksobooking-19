@@ -128,6 +128,7 @@
     window.map.returnPin();
     window.map.addCoordinates(MAP_PIN_MAIN.activeIndent);
     window.photo.deactivate();
+    window.photo.activate();
   };
 
   guestsSelect.addEventListener('change', guestsSelectChangeHandler);

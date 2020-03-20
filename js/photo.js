@@ -62,6 +62,9 @@
     photoFileChooser.removeEventListener('change', photoFileChooserChangeHandler);
   };
 
+  // avatarFileChooser.addEventListener('change', avatarFileChooserChangeHandler);
+  // photoFileChooser.addEventListener('change', photoFileChooserChangeHandler);
+
   window.photo = {
     activate: activatePhoto,
     deactivate: deactivatePhoto

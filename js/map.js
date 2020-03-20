@@ -160,6 +160,7 @@
 
   window.map = {
     addCoordinates: addCoordinates,
+    // activatePage: activatePage,
     deactivatePage: deactivatePage,
     returnPin: setDefaultMapPinMain
   };

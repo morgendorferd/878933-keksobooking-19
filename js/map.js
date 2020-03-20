@@ -131,6 +131,7 @@
     isActive = false;
     window.photo.deactivate();
     window.pin.delete();
+    window.card.delete();
     window.filter.reset();
   };
 

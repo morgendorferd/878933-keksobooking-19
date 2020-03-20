@@ -129,6 +129,8 @@
     window.map.addCoordinates(MAP_PIN_MAIN.activeIndent);
     window.photo.deactivate();
     window.photo.activate();
+    window.pin.delete();
+    window.data.load();
   };
 
   guestsSelect.addEventListener('change', guestsSelectChangeHandler);

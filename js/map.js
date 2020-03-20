@@ -130,6 +130,7 @@
     setDisabled(formElements);
     setDisabled(filtersElements);
     isActive = false;
+    window.photo.deactivate();
   };
 
   var activatePage = function () {
@@ -140,6 +141,7 @@
     window.data.load();
     addCoordinates(MAP_PIN_MAIN.activeIndent);
     isActive = true;
+    window.photo.activate();
   };
 
   var mapPinMainKeydownHandler = function (evt) {

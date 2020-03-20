@@ -64,19 +64,19 @@
   };
 
   var checkValidityTitle = function () {
+    setBorder(titleField, BORDER_COLOR.invalid);
+
     if (titleField.value.length < TITLE_LENGTH.min) {
-      titleField.setCustomValidity('Слишком короткое название');
-      setBorder(titleField, BORDER_COLOR.invalid);
+      titleField.setCustomValidity('Минимальная длина названия 30 символов, сейчас ' + titleField.value.length);
     } else if (titleField.value.length > TITLE_LENGTH.max) {
       titleField.setCustomValidity('Слишком длинное название');
-      setBorder(titleField, BORDER_COLOR.invalid);
     } else {
       titleField.setCustomValidity('');
       setBorder(titleField, BORDER_COLOR.valid);
     }
   };
 
-  titleField.addEventListener('change', checkValidityTitle);
+  titleField.addEventListener('input', checkValidityTitle);
   priceSelect.addEventListener('change', checkValidityTypeAndPrice);
   typeSelect.addEventListener('change', checkValidityTypeAndPrice);
   timeInSelect.addEventListener('change', timeInChangeHandler);
@@ -86,15 +86,13 @@
     var rooms = parseInt((roomsSelect.value), 10);
     var guests = parseInt((guestsSelect.value), 10);
 
+    setBorder(guestsSelect, BORDER_COLOR.invalid);
     if ((rooms < guests) && (rooms !== VALIDITY_OPTIONS.rooms) && (guests !== VALIDITY_OPTIONS.guests)) {
       guestsSelect.setCustomValidity('Максимальное число гостей: ' + rooms);
-      setBorder(guestsSelect, BORDER_COLOR.invalid);
     } else if ((rooms === VALIDITY_OPTIONS.rooms) && (guests !== VALIDITY_OPTIONS.guests)) {
       guestsSelect.setCustomValidity('не для гостей');
-      setBorder(guestsSelect, BORDER_COLOR.invalid);
     } else if ((guests === VALIDITY_OPTIONS.guests) && (rooms !== VALIDITY_OPTIONS.rooms)) {
       guestsSelect.setCustomValidity('Размещение невозможно');
-      setBorder(guestsSelect, BORDER_COLOR.invalid);
     } else {
       guestsSelect.setCustomValidity('');
       setBorder(guestsSelect, BORDER_COLOR.valid);
@@ -129,6 +127,7 @@
     window.filter.reset();
     window.map.returnPin();
     window.map.addCoordinates(MAP_PIN_MAIN.activeIndent);
+    window.photo.deactivate();
   };
 
   guestsSelect.addEventListener('change', guestsSelectChangeHandler);

@@ -26,5 +26,4 @@
     load: defaultAdvert,
     update: updateAdvert
   };
-
 })();

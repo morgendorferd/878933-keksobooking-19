@@ -64,9 +64,9 @@
     setBorder(titleField, BORDER_COLOR.invalid);
 
     if (titleField.value.length < TITLE_LENGTH.min) {
-      titleField.setCustomValidity('Минимальная длина названия 30 символов, сейчас ' + titleField.value.length);
+      titleField.setCustomValidity('Минимальная длина заголовка 30 символов, сейчас ' + titleField.value.length);
     } else if (titleField.value.length > TITLE_LENGTH.max) {
-      titleField.setCustomValidity('Слишком длинное название');
+      titleField.setCustomValidity('Слишком длинный заголовок');
     } else {
       titleField.setCustomValidity('');
       setBorder(titleField, BORDER_COLOR.valid);
@@ -118,9 +118,7 @@
     evt.preventDefault();
 
     form.reset();
-    window.filter.reset();
     window.map.deactivatePage();
-    window.photo.activate();
   };
 
   guestsSelect.addEventListener('change', guestsSelectChangeHandler);

@@ -5,7 +5,6 @@
   var MAP_PIN_MAIN = {
     width: 62,
     height: 62,
-    tailHeight: 22,
     indent: 0,
     activeIndent: 53,
     defaultX: 570,
@@ -161,9 +160,6 @@
   filters.addEventListener('change', filtersChangeHandler);
 
   window.map = {
-    addCoordinates: addCoordinates,
-    // activatePage: activatePage,
-    deactivatePage: deactivatePage,
-    returnPin: setDefaultMapPinMain
+    deactivatePage: deactivatePage
   };
 })();

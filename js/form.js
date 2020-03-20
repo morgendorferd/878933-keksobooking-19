@@ -5,9 +5,6 @@
     rooms: 100,
     guests: 0
   };
-  var MAP_PIN_MAIN = {
-    activeIndent: 53
-  };
   var BORDER_COLOR = {
     valid: '#d9d9d3',
     invalid: '#ff0000'
@@ -77,7 +74,7 @@
   };
 
   titleField.addEventListener('input', checkValidityTitle);
-  priceSelect.addEventListener('change', checkValidityTypeAndPrice);
+  priceSelect.addEventListener('input', checkValidityTypeAndPrice);
   typeSelect.addEventListener('change', checkValidityTypeAndPrice);
   timeInSelect.addEventListener('change', timeInChangeHandler);
   timeOutSelect.addEventListener('change', timeOutChangeHandler);
@@ -90,7 +87,7 @@
     if ((rooms < guests) && (rooms !== VALIDITY_OPTIONS.rooms) && (guests !== VALIDITY_OPTIONS.guests)) {
       guestsSelect.setCustomValidity('Максимальное число гостей: ' + rooms);
     } else if ((rooms === VALIDITY_OPTIONS.rooms) && (guests !== VALIDITY_OPTIONS.guests)) {
-      guestsSelect.setCustomValidity('не для гостей');
+      guestsSelect.setCustomValidity('Выбранное количество комнат не подходит для гостей');
     } else if ((guests === VALIDITY_OPTIONS.guests) && (rooms !== VALIDITY_OPTIONS.rooms)) {
       guestsSelect.setCustomValidity('Размещение невозможно');
     } else {

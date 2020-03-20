@@ -131,6 +131,8 @@
     setDisabled(filtersElements);
     isActive = false;
     window.photo.deactivate();
+    window.pin.delete();
+    window.filter.reset();
   };
 
   var activatePage = function () {

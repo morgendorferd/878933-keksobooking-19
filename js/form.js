@@ -113,11 +113,8 @@
     evt.preventDefault();
 
     window.backend.save(new FormData(form), window.modal.createSuccess, window.modal.createError);
-    window.map.deactivatePage();
-    window.pin.delete();
     form.reset();
-    window.filter.reset();
-    window.map.addCoordinates(MAP_PIN_MAIN.activeIndent);
+    window.map.deactivatePage();
   };
 
   var buttonResetClickHandler = function (evt) {
@@ -125,12 +122,8 @@
 
     form.reset();
     window.filter.reset();
-    window.map.returnPin();
-    window.map.addCoordinates(MAP_PIN_MAIN.activeIndent);
-    window.photo.deactivate();
+    window.map.deactivatePage();
     window.photo.activate();
-    window.pin.delete();
-    window.data.load();
   };
 
   guestsSelect.addEventListener('change', guestsSelectChangeHandler);
